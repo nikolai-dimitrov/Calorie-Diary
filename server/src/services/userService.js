@@ -3,6 +3,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("../lib/jwt");
 const { JWT_SECRET } = require("../constants");
 
+const getAuthResult = async (user) => {
+	const payload = { _id: user._id, email: user.email };
+	const accessToken = await jwt.sign(payload, JWT_SECRET, {
+		expiresIn: "2d",
+	});
+
+	const result = { accessToken, user: payload };
+	return result;
+};
+
 exports.register = (userData) => User.create(userData);
 
 exports.login = async ({ email, password }) => {
@@ -16,8 +26,7 @@ exports.login = async ({ email, password }) => {
 	if (!isPasswordValid) {
 		throw new Error("Invalid email or password");
 	}
-      
-	const payload = { _id: user._id, email: user.email };
-	const token = await jwt.sign(payload, JWT_SECRET, { expiresIn: "2d" });
-	return token;
+
+	const result = getAuthResult(user);
+	return result;
 };
