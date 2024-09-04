@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const userService = require("../services/userService");
+
 router.post("/register", async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
@@ -14,9 +15,9 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
+		const token = await userService.login({ email, password });
 
-		await userService.login({ email, password });
-		res.json({ message: "Login successfully" });
+		res.json({ token });
 	} catch (error) {
 		res.status(400).json({ message: error.message });
 	}
