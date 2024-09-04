@@ -13,7 +13,13 @@ const getAuthResult = async (user) => {
 	return result;
 };
 
-exports.register = (userData) => User.create(userData);
+exports.register = async (userData) => {
+	const user = await User.create(userData);
+      
+	const result = getAuthResult(user);
+	return result;
+};
+
 
 exports.login = async ({ email, password }) => {
 	const user = await User.findOne({ email });

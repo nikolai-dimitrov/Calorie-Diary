@@ -4,9 +4,9 @@ const userService = require("../services/userService");
 router.post("/register", async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
-		await userService.register({ email, password });
+		const result = await userService.register({ email, password });
 
-		res.json({ message: "Registered successfully" });
+		res.json(result);
 	} catch (error) {
 		res.status(400).json({ message });
 	}
