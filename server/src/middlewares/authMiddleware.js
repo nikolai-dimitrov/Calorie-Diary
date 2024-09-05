@@ -1,5 +1,6 @@
 const jwt = require("../lib/jwt");
 const { JWT_SECRET } = require("../constants");
+const CustomError = require("../utils/CustomError");
 
 // If jwt token is provided and the token is valid attach user data to the request
 exports.authMiddleware = async (req, res, next) => {
@@ -10,8 +11,7 @@ exports.authMiddleware = async (req, res, next) => {
 			req.user = user;
 			next();
 		} catch (error) {
-			res.status(401).json({ message: "You are not authenticated" });
-			// next(error);
+			next(new CustomError(401, "You are not authenticated"));
 		}
 	} else {
 		next();
@@ -23,10 +23,10 @@ exports.authMiddleware = async (req, res, next) => {
 exports.isAuthRequired = (requiredAuth) => {
 	return function (req, res, next) {
 		if (requiredAuth && !req.user) {
-			return res.status(401).json({ message: "You are not authenticated" });
+			next(new CustomError(401, "You are not authenticated"));
 		} else if (!requiredAuth && req.user) {
-			return res.status(409).json({ message: "You are already authenticated" });
+			next(new CustomError(409, "You are already authenticated"));
 		}
-            next()
+		next();
 	};
 };
