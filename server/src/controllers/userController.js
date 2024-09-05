@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const userService = require("../services/userService");
 const { isAuthRequired } = require("../middlewares/authMiddleware");
+const CustomError = require("../utils/CustomError");
+// const asyncErrorCatcher = require("../utils/asyncErrorCatcher");
 
 router.post("/register", isAuthRequired(false), async (req, res, next) => {
 	try {
@@ -12,9 +14,12 @@ router.post("/register", isAuthRequired(false), async (req, res, next) => {
 			repeatPassword,
 		});
 
-		res.json(result);
+		res.status(201).json({
+			status: "success",
+			data: result,
+		});
 	} catch (error) {
-		res.status(400).json({ message: error.message });
+		next(error);
 	}
 });
 
@@ -23,9 +28,12 @@ router.post("/login", isAuthRequired(false), async (req, res, next) => {
 		const { email, password } = req.body;
 		const result = await userService.login({ email, password });
 
-		res.json(result);
+		res.status(200).json({
+			status: "success",
+			data: result,
+		});
 	} catch (error) {
-		res.status(400).json({ message: error.message });
+		next(error);
 	}
 });
 
