@@ -3,12 +3,17 @@ const userService = require("../services/userService");
 
 router.post("/register", async (req, res, next) => {
 	try {
-		const { email, password } = req.body;
-		const result = await userService.register({ email, password });
+		const { email, password, repeatPassword } = req.body;
+
+		const result = await userService.register({
+			email,
+			password,
+			repeatPassword,
+		});
 
 		res.json(result);
 	} catch (error) {
-		res.status(400).json({ message });
+		res.status(400).json({ message: error.message });
 	}
 });
 

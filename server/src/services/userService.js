@@ -14,12 +14,24 @@ const getAuthResult = async (user) => {
 };
 
 exports.register = async (userData) => {
-	const user = await User.create(userData);
+	const userExists =
+		(await User.countDocuments({ email: userData.email })) >= 1
+			? true
+			: false;
+
+	if (userExists) {
+		throw new Error("User already exists");
+	}
+
+	if (userData.password != userData.repeatPassword) {
+		throw new Error("Passwords do not match");
+	}
       
+	const user = await User.create(userData);
+
 	const result = getAuthResult(user);
 	return result;
 };
-
 
 exports.login = async ({ email, password }) => {
 	const user = await User.findOne({ email });
@@ -36,3 +48,6 @@ exports.login = async ({ email, password }) => {
 	const result = getAuthResult(user);
 	return result;
 };
+
+// TODO Logout functionality
+exports.logout = async ({ email, password }) => {};
