@@ -29,8 +29,9 @@ router.post("/login", isAuthRequired(false), async (req, res, next) => {
 	}
 });
 
+// TODO: refreshToken 2d and accessToken 15m || blacklisted currentToken on logout
 router.get("/logout", isAuthRequired(true), (req, res, next) => {
-	res.send({ logout: "Logged out" });
+	res.send({ message: "Logged out" });
 });
 
 module.exports = router;
