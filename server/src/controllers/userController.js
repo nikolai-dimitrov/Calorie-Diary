@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const userService = require("../services/userService");
+const { isAuthRequired } = require("../middlewares/authMiddleware");
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", isAuthRequired(false), async (req, res, next) => {
 	try {
 		const { email, password, repeatPassword } = req.body;
 
@@ -17,7 +18,7 @@ router.post("/register", async (req, res, next) => {
 	}
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", isAuthRequired(false), async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
 		const result = await userService.login({ email, password });
@@ -28,7 +29,7 @@ router.post("/login", async (req, res, next) => {
 	}
 });
 
-router.get("/logout", (req, res, next) => {
+router.get("/logout", isAuthRequired(true), (req, res, next) => {
 	res.send({ logout: "Logged out" });
 });
 
