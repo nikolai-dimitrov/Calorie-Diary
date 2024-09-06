@@ -7,6 +7,7 @@ exports.createProfile = async (profileData) => {
 	if (profileExists) {
 		throw new CustomError(409, "You already have profile");
 	}
+
 	const bmr = calculateBmr(
 		profileData.currentWeight,
 		profileData.height,
@@ -16,5 +17,15 @@ exports.createProfile = async (profileData) => {
 	profileData.bmr = bmr;
 
 	const profile = await Profile.create(profileData);
+	return profile;
+};
+exports.editProfile = async (profileData) => {};
+
+exports.getProfile = async (userId) => {
+	const profile = await Profile.findOne({ owner: userId });
+	if (!profile) {
+		throw new CustomError(404, "You have't created profile yet");
+	}
+
 	return profile;
 };
