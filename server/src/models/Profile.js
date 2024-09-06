@@ -4,10 +4,11 @@ const profileSchema = new mongoose.Schema({
 	gender: {
 		type: String,
 		enum: ["male", "female"],
+		default: ["male"], //
 	},
 
 	age: {
-		type: String,
+		type: Number,
 		min: [1, "Your age should be greater than 1"],
 		min: [100, "Your age should be less than 100"],
 	},
@@ -39,7 +40,7 @@ const profileSchema = new mongoose.Schema({
 	},
 
 	caloriesGoal: {
-		type: String,
+		type: Number,
 		//e.g 1700 calorie target
 	},
 
@@ -62,3 +63,6 @@ module.exports = Profile;
 // 	min: [1, "Your activity level should be greater than 1"],
 // 	max: [5, "Your activity level should be lower or equal to 5"],
 // },
+
+// Other model -> daily activity for example
+// Exercise Calorie burned - eating calorie get - cardio/workout/
