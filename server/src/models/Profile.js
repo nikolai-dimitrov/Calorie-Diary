@@ -10,7 +10,7 @@ const profileSchema = new mongoose.Schema({
 	age: {
 		type: Number,
 		min: [1, "Your age should be greater than 1"],
-		min: [100, "Your age should be less than 100"],
+		max: [100, "Your age should be less than 100"],
 	},
 
 	height: {
