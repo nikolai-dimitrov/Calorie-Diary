@@ -13,7 +13,8 @@ router.get("/", isAuthRequired(true), async (req, res, next) => {
 	} catch (error) {
 		next(error);
 	}
-});
+}); 
+
 // Create profile
 router.post("/", isAuthRequired(true), async (req, res, next) => {
 	try {
