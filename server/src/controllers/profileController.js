@@ -27,11 +27,12 @@ router.post("/", isAuthRequired(true), async (req, res, next) => {
 		next(error);
 	}
 });
+
 // Update profile
 router.put("/", isAuthRequired(true), async (req, res, next) => {
 	try {
-		const profileData = { ...req.body, owner: req.user?._id };
-		const profile = await profileService.updateProfile(profileData);
+		const newProfileData = { ...req.body, owner: req.user?._id };
+		const profile = await profileService.updateProfile(newProfileData);
 		res.status(200).json({
 			status: "success",
 			data: profile,
@@ -40,4 +41,5 @@ router.put("/", isAuthRequired(true), async (req, res, next) => {
 		next(error);
 	}
 });
+
 module.exports = router;
