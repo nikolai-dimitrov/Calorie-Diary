@@ -1,6 +1,6 @@
 const Profile = require("../models/Profile");
 const CustomError = require("../utils/CustomError");
-const { calculateBmr } = require("../utils/calculateBmr");
+const { calculateBmr } = require("../helpers/calculateBmr");
 
 exports.getProfile = async (userId) => {
 	const profile = await Profile.findOne({ owner: userId });
@@ -32,6 +32,7 @@ exports.updateProfile = async (newProfileData) => {
 	if (!profileExists) {
 		throw new CustomError(404, "You have't created profile yet");
 	}
+
 	// Calc bmr again because of changes in weight age or height
 	const bmr = calculateBmr(newProfileData);
 	newProfileData.bmr = bmr;
@@ -43,6 +44,6 @@ exports.updateProfile = async (newProfileData) => {
 		newProfileData,
 		{ runValidators: true, new: true }
 	);
-      
+
 	return profile;
 };

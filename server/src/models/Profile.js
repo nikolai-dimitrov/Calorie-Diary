@@ -9,6 +9,7 @@ const profileSchema = new mongoose.Schema({
 
 	age: {
 		type: Number,
+		required: [true, "Age is required"],
 		min: [1, "Your age should be greater than 1"],
 		max: [100, "Your age should be less than 100"],
 	},
@@ -40,6 +41,7 @@ const profileSchema = new mongoose.Schema({
 	},
 
 	caloriesGoal: {
+		required: [true, "Your calorie target is required"],
 		type: Number,
 		//e.g 1700 calorie target
 	},
@@ -53,6 +55,13 @@ const profileSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: "User",
 	},
+
+	activityReports: [
+		{
+			type: mongoose.Types.ObjectId,
+			ref: "ActivityReports",
+		},
+	],
 });
 
 const Profile = mongoose.model("Profile", profileSchema);
