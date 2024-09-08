@@ -3,9 +3,18 @@ const CustomError = require("../utils/CustomError");
 const getUserProfile = require("../helpers/getUserProfile");
 const calculateCalorieResults = require("../helpers/calculateCalorieResult");
 
+const retrieveReportOrThrow = async (id) => {
+	const activityReportExists = await ActivityReport.findById(id);
+	if (!activityReportExists) {
+		throw new CustomError(404, "This activity report does not exists");
+	}
+	return activityReportExists;
+};
+
 //TODO: Handle db errors
 
 exports.getActivityReports = async (userId) => {
+	// TODO: getUserProfile
 	const profile = await getUserProfile(userId);
 	const activityReports = await ActivityReport.find({ profile: profile._id });
 	return activityReports;
@@ -34,19 +43,10 @@ exports.updateActivityReport = async (
 	activityReportId,
 	newActivityReportData
 ) => {
-	// retrieve entity func
-	// rename activity report exists 
-	// retrieve activityReport from util func than update current record (remove findByIdAndUpdate)
-	const activityReportExists = await ActivityReport.findById(
-		activityReportId
-	);
-
-	if (!activityReportExists) {
-		throw new CustomError(404, "This activity report does not exists");
-	}
+	const oldActivityReport = await retrieveReportOrThrow(activityReportId);
 
 	const caloriesResult = calculateCalorieResults(
-		activityReportExists.bmr, // 
+		oldActivityReport.bmr, //
 		newActivityReportData
 	);
 
@@ -58,22 +58,11 @@ exports.updateActivityReport = async (
 		{ runValidators: true, new: true }
 	);
 
-	console.log(activityReport);
 	return activityReport;
 };
 
 exports.deleteActivityReport = async (activityReportId) => {
-	// retrieve entity func
-	const activityReportExists = await ActivityReport.findById(
-		activityReportId
-	);
-
-	if (!activityReportExists) {
-		throw new CustomError(404, "This activity report does not exists");
-	}
-
-	const activityReport = await ActivityReport.findByIdAndDelete(
-		activityReportId
-	);
-	return activityReport;
+	const activityReport = await retrieveReportOrThrow(activityReportId);
+	const deleteConfirmation = activityReport.deleteOne();
+	return deleteConfirmation;
 };
