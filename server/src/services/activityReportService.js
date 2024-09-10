@@ -8,14 +8,22 @@ const retrieveReportOrThrow = async (id) => {
 	if (!activityReport) {
 		throw new CustomError(404, "This activity report does not exists");
 	}
+
 	return activityReport;
 };
 
 //TODO: Handle db errors
 exports.getActivityReports = async (userId) => {
-	// TODO: getUserProfile
 	const profile = await getUserProfile(userId);
-	const activityReports = await ActivityReport.find({ profile: profile._id });
+
+	let lastWeek = new Date();
+	lastWeek.setDate(lastWeek.getDate() - 7);
+
+	const activityReports = await ActivityReport.find({
+		owner: profile._id,
+		createdAt: { $gte: lastWeek },
+	});
+
 	return activityReports;
 };
 
@@ -27,6 +35,21 @@ exports.createActivityReport = async (activityReportData, userId) => {
 		activityReportData
 	);
 
+	const startOfTheDay = new Date();
+	startOfTheDay.setHours(0, 0, 0, 0);
+
+	const todayActivityReports = await ActivityReport.find({
+		createdAt: { $gte: startOfTheDay },
+		owner: profile._id,
+	});
+
+	if (todayActivityReports.length > 0) {
+		throw new CustomError(
+			400,
+			"You have already logged your today's activity report"
+		);
+	}
+	
 	const activityReport = await ActivityReport.create({
 		...activityReportData,
 		owner: profile._id,
@@ -34,7 +57,7 @@ exports.createActivityReport = async (activityReportData, userId) => {
 		bmr: profile.bmr,
 		caloriesComparedToBmr: caloriesResult,
 	});
-	// console.log(activityReport.)
+
 	return activityReport;
 };
 
