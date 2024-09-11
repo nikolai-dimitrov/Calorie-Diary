@@ -1,10 +1,21 @@
 const mongoose = require("mongoose");
 
+const goalHistorySchema = new mongoose.Schema({
+	goal: {
+		type: String,
+		enum: ["Lose Weight", "Gain Weight", "Maintain Weight"],
+		required: true,
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
+	},
+});
+
 const profileSchema = new mongoose.Schema({
 	gender: {
 		type: String,
 		enum: ["male", "female"],
-		default: ["male"], //
 	},
 
 	age: {
@@ -36,9 +47,16 @@ const profileSchema = new mongoose.Schema({
 	bodyGoal: {
 		type: String,
 		enum: ["Lose Weight", "Gain Weight", "Maintain Weight"],
-		default: ["Maintain Weight"], //
 		required: [true, "Body goal is required"],
 	},
+	
+	/** 
+	* bodyGoalHistory:
+	- This field contains information about when user start to gain weight or lose weight 
+	- It will be used to show time period for every phase like lose/gain or maintain weight
+	- Based on that information we will calculate user's weight progress
+	**/
+	bodyGoalHistory: [goalHistorySchema],
 
 	caloriesGoal: {
 		required: [true, "Your calorie target is required"],
@@ -64,14 +82,14 @@ const profileSchema = new mongoose.Schema({
 	],
 });
 
+profileSchema.pre("save", async function () {
+	if (this.bodyGoalHistory.length == 0) {
+		console.log(this.bodyGoal);
+		this.bodyGoalHistory.push({
+			goal: this.bodyGoal,
+		});
+	}
+});
+
 const Profile = mongoose.model("Profile", profileSchema);
 module.exports = Profile;
-
-// activityLevel: {
-// 	type: Number,
-// 	min: [1, "Your activity level should be greater than 1"],
-// 	max: [5, "Your activity level should be lower or equal to 5"],
-// },
-
-// Other model -> daily activity for example
-// Exercise Calorie burned - eating calorie get - cardio/workout/
