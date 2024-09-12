@@ -49,7 +49,7 @@ const profileSchema = new mongoose.Schema({
 		enum: ["Lose Weight", "Gain Weight", "Maintain Weight"],
 		required: [true, "Body goal is required"],
 	},
-	
+
 	/** 
 	* bodyGoalHistory:
 	- This field contains information about when user start to gain weight or lose weight 
@@ -73,13 +73,6 @@ const profileSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: "User",
 	},
-
-	activityReports: [
-		{
-			type: mongoose.Types.ObjectId,
-			ref: "ActivityReports",
-		},
-	],
 });
 
 profileSchema.pre("save", async function () {
