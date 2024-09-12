@@ -12,19 +12,75 @@ const retrieveReportOrThrow = async (id) => {
 	return activityReport;
 };
 
-//TODO: Handle db errors
-exports.getActivityReports = async (userId) => {
+/* 
+* Find searched body goal start date and end date than return whole period
+* End of body goal period is considered to be next body goal start date
+  - If there isn't next body goal it returns today date as toDate
+  Example: 
+ - profile.bodyGoalHistory[2] returns 2024.01.01 -> start lose weight (fromDate)
+ - profile.bodyGoalHistory[3] returns 2024.03.01 -> start gain weight (toDate)
+ - Lose weight period is between index 2 and index 3 (2024.01.01 -> 2024.03.01) 
+ - If there isn't profile.bodyGoalHistory[3] returns (today as toDate) it means user is still in lose weight phase
+*/
+const getBodyGoalPeriod = (profile, bodyGoalId) => {
+	// Body goals in profile are sorted ascending -> latest to oldest
+	const searchedBodyGoalIndex = profile.bodyGoalHistory.findIndex(
+		(el) => el.id == bodyGoalId
+	);
+
+	if (searchedBodyGoalIndex == -1) {
+		throw new CustomError(404, "This body goal doesn't exist");
+	}
+
+	const fromDate = profile.bodyGoalHistory.at(
+		searchedBodyGoalIndex
+	).createdAt;
+
+	let toDate = profile.bodyGoalHistory.at(
+		searchedBodyGoalIndex + 1
+	)?.createdAt;
+
+	if (toDate == undefined) {
+		toDate = new Date();
+	}
+
+	return [fromDate, toDate];
+};
+
+// TODO: Handle db errors
+// Return records for provided time period : last 7 days 14 days 1 month etc.
+// TODO: Return 7 records not records for 7 days on each request.
+exports.getActivityReports = async (userId, pastDays) => {
 	const profile = await getUserProfile(userId);
 
-	let lastWeek = new Date();
-	lastWeek.setDate(lastWeek.getDate() - 7);
+	let timePeriod = new Date();
+	timePeriod.setDate(timePeriod.getDate() - pastDays);
 
 	const activityReports = await ActivityReport.find({
 		owner: profile._id,
-		createdAt: { $gte: lastWeek },
+		createdAt: { $gte: timePeriod },
 	});
 
 	return activityReports;
+};
+
+// Calculate and return your weight progress for specified body goal
+exports.getProgressInformation = async (userId, bodyGoalId) => {
+	const profile = await getUserProfile(userId);
+	const [fromDate, toDate] = getBodyGoalPeriod(profile, bodyGoalId);
+
+	const activityReports = await ActivityReport.find({
+		owner: profile.id,
+		createdAt: {
+			$gte: fromDate,
+			$lte: toDate,
+		},
+	}).select("caloriesComparedToBmr");
+
+	const totalCaloriesSum = activityReports.reduce((total, el) => total + el.caloriesComparedToBmr, 0);
+	const kcalConvertedToKg = (totalCaloriesSum / 7700).toFixed(2);
+	return kcalConvertedToKg;
+	
 };
 
 exports.createActivityReport = async (activityReportData, userId) => {
@@ -45,11 +101,11 @@ exports.createActivityReport = async (activityReportData, userId) => {
 
 	if (todayActivityReports.length > 0) {
 		throw new CustomError(
-			400,
+			409,
 			"You have already logged your today's activity report"
 		);
 	}
-	
+
 	const activityReport = await ActivityReport.create({
 		...activityReportData,
 		owner: profile._id,
@@ -58,6 +114,7 @@ exports.createActivityReport = async (activityReportData, userId) => {
 		caloriesComparedToBmr: caloriesResult,
 	});
 
+	activityReport.save();
 	return activityReport;
 };
 

@@ -5,16 +5,33 @@ const { isAuthRequired } = require("../middlewares/authMiddleware");
 router.get("/", isAuthRequired(true), async (req, res, next) => {
 	try {
 		const userId = req.user?._id;
+		const pastDays = req.query.pastDays || 7;
+
 		const activityReports = await activityReportService.getActivityReports(
-			userId
+			userId,
+			pastDays
 		);
 		res.status(200).json({
 			status: "success",
 			data: activityReports,
-			count:activityReports.length
+			count: activityReports.length,
 		});
 	} catch (error) {
 		next(error);
+	}
+});
+
+router.get("/track-progress/:id", isAuthRequired(true), async (req, res, next) => {
+	try {
+		const bodyGoalId = req.params.id
+		const userId = req.user?._id;
+		const progress = await activityReportService.getProgressInformation(userId, bodyGoalId);
+		res.status(200).json({
+			status: "success",
+			data: progress,
+		});
+	}catch(error){
+		next(error)
 	}
 });
 
