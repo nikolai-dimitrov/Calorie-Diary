@@ -48,23 +48,25 @@ const getBodyGoalPeriod = (profile, bodyGoalId) => {
 };
 
 // TODO: Handle db errors
-// Return records for provided time period : last 7 days 14 days 1 month etc.
-// TODO: Return 7 records not records for 7 days on each request.
-exports.getActivityReports = async (userId, pastDays) => {
+exports.getActivityReports = async (userId, page, limit) => {
 	const profile = await getUserProfile(userId);
-
-	let timePeriod = new Date();
-	timePeriod.setDate(timePeriod.getDate() - pastDays);
+	const skip = (page - 1) * limit;
 
 	const activityReports = await ActivityReport.find({
 		owner: profile._id,
-		createdAt: { $gte: timePeriod },
+	})
+		.skip(skip)
+		.limit(limit);
+
+	const totalDocumentsCount = await ActivityReport.countDocuments({
+		owner: profile._id,
 	});
 
-	return activityReports;
+	return { activityReports, totalDocumentsCount };
 };
 
 // Calculate and return your weight progress for specified body goal
+// TODO: Return records for provided time period : last 7 days 14 days 1 month etc.
 exports.getProgressInformation = async (userId, bodyGoalId) => {
 	const profile = await getUserProfile(userId);
 	const [fromDate, toDate] = getBodyGoalPeriod(profile, bodyGoalId);
@@ -77,10 +79,12 @@ exports.getProgressInformation = async (userId, bodyGoalId) => {
 		},
 	}).select("caloriesComparedToBmr");
 
-	const totalCaloriesSum = activityReports.reduce((total, el) => total + el.caloriesComparedToBmr, 0);
+	const totalCaloriesSum = activityReports.reduce(
+		(total, el) => total + el.caloriesComparedToBmr,
+		0
+	);
 	const kcalConvertedToKg = (totalCaloriesSum / 7700).toFixed(2);
 	return kcalConvertedToKg;
-	
 };
 
 exports.createActivityReport = async (activityReportData, userId) => {
