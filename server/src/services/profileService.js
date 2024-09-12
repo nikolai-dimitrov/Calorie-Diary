@@ -2,18 +2,12 @@ const Profile = require("../models/Profile");
 const CustomError = require("../utils/CustomError");
 const { calculateBmr } = require("../helpers/calculateBmr");
 
-const updateBodyGoal = async (
-	currentProfile,
-	updatedProfile,
-	newProfileData
-) => {
-	// If user update his profile but not his current body goal then do nothing
-	if (currentProfile.bodyGoal != newProfileData.bodyGoal) {
-		updatedProfile.bodyGoalHistory.push({
-			goal: newProfileData.bodyGoal,
-		});
-		updatedProfile.save();
-	}
+const updateBodyGoal = async (updatedProfile, newProfileData) => {
+	updatedProfile.bodyGoalHistory.push({
+		goal: newProfileData.bodyGoal,
+	});
+
+	updatedProfile.save();
 };
 
 exports.getProfile = async (userId) => {
@@ -22,6 +16,9 @@ exports.getProfile = async (userId) => {
 		throw new CustomError(404, "You have't created profile yet");
 	}
 
+	profile.bodyGoalHistory = profile.bodyGoalHistory.sort(
+		(a, b) => a.createdAt - b.createdAt
+	);
 	return profile;
 };
 
@@ -59,7 +56,9 @@ exports.updateProfile = async (newProfileData) => {
 		{ runValidators: true, new: true }
 	);
 	
-      // If user provide different body goal than current body goal new goal is added in to the profile
-	await updateBodyGoal(currentProfile, updatedProfile, newProfileData);
+	if (currentProfile.bodyGoal != newProfileData.bodyGoal) {
+		await updateBodyGoal(updatedProfile, newProfileData);
+	}
+
 	return updatedProfile;
 };
