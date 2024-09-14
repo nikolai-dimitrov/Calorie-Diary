@@ -6,9 +6,22 @@ const goalHistorySchema = new mongoose.Schema({
 		enum: ["Lose Weight", "Gain Weight", "Maintain Weight"],
 		required: true,
 	},
+
 	createdAt: {
 		type: Date,
 		default: Date.now,
+	},
+
+	startWeight: {
+		type: Number,
+	},
+
+	currentWeight: {
+		type: Number,
+	},
+
+	targetWeight: {
+		type: Number,
 	},
 });
 
@@ -77,9 +90,11 @@ const profileSchema = new mongoose.Schema({
 
 profileSchema.pre("save", async function () {
 	if (this.bodyGoalHistory.length == 0) {
-		console.log(this.bodyGoal);
 		this.bodyGoalHistory.push({
 			goal: this.bodyGoal,
+			currentWeight: this.currentWeight,
+			startWeight: this.currentWeight,
+			targetWeight: this.targetWeight,
 		});
 	}
 });
