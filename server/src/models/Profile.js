@@ -77,7 +77,6 @@ const profileSchema = new mongoose.Schema({
 
 profileSchema.pre("save", async function () {
 	if (this.bodyGoalHistory.length == 0) {
-		console.log(this.bodyGoal);
 		this.bodyGoalHistory.push({
 			goal: this.bodyGoal,
 		});
