@@ -34,7 +34,7 @@ export const Navbar = () => {
                         </li>
 
                         <li className={styles.navItem}>
-                            <Link to='/activity-reports' onClick={() => setShowNav(!showNav)} style={{
+                            <Link to='/diary' onClick={() => setShowNav(!showNav)} style={{
                                 top: showNav ? '0' : '120px',
                                 transitionDelay: showNav ? '0.9s' : '0s',
                             }}>Activity Reports</Link>
