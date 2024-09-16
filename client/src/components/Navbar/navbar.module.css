@@ -13,7 +13,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 2em;
+	padding: 1em 2em 1em 2em;
+	/* padding: 2em; */
 }
 
 .logo {
@@ -150,13 +151,11 @@
 
 .message p {
 	font-family: "Protest Guerrilla", sans-serif;
-      /* color: orange; */
-
+	/* color: orange; */
 }
 
 .github a {
 	font-family: "Protest Guerrilla", sans-serif;
 	text-decoration: none;
-      /* color: orange; */
-
+	/* color: orange; */
 }

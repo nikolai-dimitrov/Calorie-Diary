@@ -37,7 +37,7 @@ export const Navbar = () => {
                             <Link to='/diary' onClick={() => setShowNav(!showNav)} style={{
                                 top: showNav ? '0' : '120px',
                                 transitionDelay: showNav ? '0.9s' : '0s',
-                            }}>Activity Reports</Link>
+                            }}>My Diary</Link>
                             <div className={styles.itemWrapper}></div>
                         </li>
 
@@ -75,6 +75,6 @@ export const Navbar = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 };

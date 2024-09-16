@@ -10,16 +10,19 @@ import { Profile } from './components/Profile/Profile';
 import './App.css'
 function App() {
 	return (
-		<div className='main'>
+		<>
 			<Navbar />
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/login' element={<Login />} />
-				<Route path='/register' element={<Register />} />
-				<Route path='/profile' element={<Profile />} />
-				<Route path='/diary' element={<Diary />} />
-			</Routes>
-		</div>
+
+			<div className='main'>
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/register' element={<Register />} />
+					<Route path='/profile' element={<Profile />} />
+					<Route path='/diary' element={<Diary />} />
+				</Routes>
+			</div>
+		</>
 	)
 }
 
