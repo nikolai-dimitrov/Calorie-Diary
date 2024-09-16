@@ -58,3 +58,6 @@ body {
 	min-width: 320px;
 	min-height: 100vh;
 }
+.main {
+	margin-top: 6.5em;
+}
