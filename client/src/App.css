@@ -54,10 +54,11 @@ h6 {
 	isolation: isolate;
 }
 body {
-	margin: 0;
+	margin: 0 auto;
 	min-width: 320px;
 	min-height: 100vh;
+	max-width: 1600px;
 }
 .main {
-	padding-top: 6.5em;
+	padding: 6.5em 2em 0 2em;
 }
