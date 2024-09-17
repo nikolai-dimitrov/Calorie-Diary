@@ -1,6 +1,4 @@
-import img1 from '../../assets/2m9DQFsEYLIxRaktbnAFMsBSpwn.svg'
-import img2 from '../../assets/apple-2024-2.jpg'
-import styles from './home.module.css'
+import styles from './home.module.css';
 export const Home = () => {
     return (
         <>
