@@ -1,0 +1,95 @@
+.formContainer {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -30%);
+	background-color: #00000094;
+	padding: 2em 3em 2em 3em;
+}
+
+.formContainer h1 {
+	font-size: 2em;
+	margin-bottom: 1em;
+}
+
+.formContainer form {
+	display: flex;
+	gap: 0.7em;
+	flex-direction: column;
+	margin-bottom: 0.7em;
+}
+
+.formContainer form div {
+	position: relative;
+}
+
+.formContainer form input {
+	padding: 0.5em 0.5em 0.5em 1.7em;
+	background: #0000006b;
+	border: 1px solid white;
+	width: 100%;
+}
+
+.userIcon {
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+}
+
+.passwordKeyIcon {
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+}
+
+.passwordReveal {
+	position: absolute;
+	top: 50%;
+	left: 90%;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.formContainer form input::placeholder {
+	color: #fff;
+}
+
+button {
+	cursor: pointer;
+}
+
+.footerTop {
+	margin-bottom: 0.7em;
+	align-items: center;
+}
+
+.footerTop a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+	margin-right: 0.9em;
+}
+
+.footerTop label {
+	margin-right: 0.5em;
+}
+
+.divideFooter {
+	text-align: center;
+	margin-bottom: 0.7em;
+	font-weight: bold;
+	color: #fff;
+}
+
+.footerBottom {
+	display: flex;
+	gap: 0.5em;
+}
+
+.footerBottom a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+}
