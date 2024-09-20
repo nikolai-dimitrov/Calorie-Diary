@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom'
+
 import styles from './auth-form.module.css';
 import { FaEye, FaKey, FaUser } from "react-icons/fa";
 
-export const AuthForm = () => {
+export const AuthForm = ({ formValues, onSubmit, onChange }) => {
       const [showPassword, setShowPassword] = useState(false)
       const [showRepeatPassword, setShowRepeatPassword] = useState(false)
       const location = useLocation()
@@ -13,18 +14,21 @@ export const AuthForm = () => {
             } else return true
       })
 
-      useEffect(() => {
-            setRegisterForm(!!registerForm)
-      }, [])
       return (
             <div className={styles.formContainer}>
                   {<h1>{registerForm ? 'Register' : 'Log In'}</h1>}
-                  <form action="">
+                  <form action="post"
+                        onSubmit={onSubmit}
+                  >
                         <div>
                               <FaUser className={styles.userIcon} />
                               <input
-                                    type="text"
-                                    placeholder='Username'
+                                    type='text'
+                                    placeholder='Email'
+                                    id='email'
+                                    name='email'
+                                    onChange={onChange}
+                                    value={formValues.email}
                               />
                         </div>
                         <div>
@@ -32,6 +36,10 @@ export const AuthForm = () => {
                               <input
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder='Password'
+                                    id='password'
+                                    name='password'
+                                    onChange={onChange}
+                                    value={formValues.password}
                               />
                               <FaEye className={styles.passwordReveal} onClick={() => setShowPassword(!showPassword)} />
                         </div>
@@ -41,6 +49,10 @@ export const AuthForm = () => {
                                     <input
                                           type={showRepeatPassword ? 'text' : 'password'}
                                           placeholder='Repeat Password'
+                                          id='repeatPassword'
+                                          name='repeatPassword'
+                                          onChange={onChange}
+                                          value={formValues.repeatPassword}
                                     />
                                     <FaEye className={styles.passwordReveal} onClick={() => setShowRepeatPassword(!showRepeatPassword)} />
                               </div>}
