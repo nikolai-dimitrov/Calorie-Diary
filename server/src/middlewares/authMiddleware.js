@@ -4,7 +4,8 @@ const CustomError = require("../utils/CustomError");
 
 // If jwt token is provided and the token is valid attach user data to the request
 exports.authMiddleware = async (req, res, next) => {
-	const token = req.headers.authorization?.split(" ")[1];
+	// const token = req.headers['x-authorization']?.split(" ")[1];
+	const token = req.headers["x-authorization"];
 	if (token) {
 		try {
 			const user = await jwt.verify(token, JWT_SECRET);
