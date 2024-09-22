@@ -59,7 +59,9 @@
 button {
 	cursor: pointer;
 }
-
+.serverError {
+	color: red;
+}
 .footerTop {
 	margin-bottom: 0.7em;
 	align-items: center;
