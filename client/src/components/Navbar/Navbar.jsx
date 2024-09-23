@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
+import { useAuthStore } from '../../stores/authStore';
 import styles from './navbar.module.css';
 export const Navbar = () => {
+    const { user } = useAuthStore()
     const [showNav, setShowNav] = useState(false)
     return (
         <div className={styles.nav}>
@@ -40,30 +42,34 @@ export const Navbar = () => {
                             }}>My Diary</Link>
                             <div className={styles.itemWrapper}></div>
                         </li>
+                        {user ?
+                            <li className={styles.navItem}>
+                                <Link to='/logout' onClick={() => setShowNav(!showNav)} style={{
+                                    top: showNav ? '0' : '120px',
+                                    transitionDelay: showNav ? '1s' : '0s',
+                                }}>Logout</Link>
+                                <div className={styles.itemWrapper}></div>
+                            </li>
+                            :
+                            <>
+                                <li className={styles.navItem}>
+                                    <Link to='/login' onClick={() => setShowNav(!showNav)} style={{
+                                        top: showNav ? '0' : '120px',
+                                        transitionDelay: showNav ? '1.1s' : '0s',
+                                    }}>Login</Link>
+                                    <div className={styles.itemWrapper}></div>
+                                </li>
 
-                        <li className={styles.navItem}>
-                            <Link to='/logout' onClick={() => setShowNav(!showNav)} style={{
-                                top: showNav ? '0' : '120px',
-                                transitionDelay: showNav ? '1s' : '0s',
-                            }}>Logout</Link>
-                            <div className={styles.itemWrapper}></div>
-                        </li>
+                                <li className={styles.navItem}>
+                                    <Link to='/register' onClick={() => setShowNav(!showNav)} style={{
+                                        top: showNav ? '0' : '120px',
+                                        transitionDelay: showNav ? '1.2s' : '0s',
+                                    }}>Register</Link>
+                                    <div className={styles.itemWrapper}></div>
+                                </li></>
+                        }
 
-                        <li className={styles.navItem}>
-                            <Link to='/login' onClick={() => setShowNav(!showNav)} style={{
-                                top: showNav ? '0' : '120px',
-                                transitionDelay: showNav ? '1.1s' : '0s',
-                            }}>Login</Link>
-                            <div className={styles.itemWrapper}></div>
-                        </li>
 
-                        <li className={styles.navItem}>
-                            <Link to='/register' onClick={() => setShowNav(!showNav)} style={{
-                                top: showNav ? '0' : '120px',
-                                transitionDelay: showNav ? '1.2s' : '0s',
-                            }}>Register</Link>
-                            <div className={styles.itemWrapper}></div>
-                        </li>
                     </ul>
                     <div className={styles.footer}>
                         <div className={styles.message}>
