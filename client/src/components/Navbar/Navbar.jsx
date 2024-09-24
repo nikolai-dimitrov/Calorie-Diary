@@ -26,30 +26,31 @@ export const Navbar = () => {
                             }}>Home</Link>
                             <div className={styles.itemWrapper}></div>
                         </li>
-
-                        <li className={styles.navItem}>
-                            <Link to='/profile' onClick={() => setShowNav(!showNav)} style={{
-                                top: showNav ? '0' : '120px',
-                                transitionDelay: showNav ? '0.8s' : '0s',
-                            }}>Profile</Link>
-                            <div className={styles.itemWrapper}></div>
-                        </li>
-
-                        <li className={styles.navItem}>
-                            <Link to='/diary' onClick={() => setShowNav(!showNav)} style={{
-                                top: showNav ? '0' : '120px',
-                                transitionDelay: showNav ? '0.9s' : '0s',
-                            }}>My Diary</Link>
-                            <div className={styles.itemWrapper}></div>
-                        </li>
                         {user ?
-                            <li className={styles.navItem}>
-                                <Link to='/logout' onClick={() => setShowNav(!showNav)} style={{
-                                    top: showNav ? '0' : '120px',
-                                    transitionDelay: showNav ? '1s' : '0s',
-                                }}>Logout</Link>
-                                <div className={styles.itemWrapper}></div>
-                            </li>
+                            <>
+                                <li className={styles.navItem}>
+                                    <Link to='/profile' onClick={() => setShowNav(!showNav)} style={{
+                                        top: showNav ? '0' : '120px',
+                                        transitionDelay: showNav ? '0.8s' : '0s',
+                                    }}>Profile</Link>
+                                    <div className={styles.itemWrapper}></div>
+                                </li>
+
+                                <li className={styles.navItem}>
+                                    <Link to='/diary' onClick={() => setShowNav(!showNav)} style={{
+                                        top: showNav ? '0' : '120px',
+                                        transitionDelay: showNav ? '0.9s' : '0s',
+                                    }}>My Diary</Link>
+                                    <div className={styles.itemWrapper}></div>
+                                </li>
+                                <li className={styles.navItem}>
+                                    <Link to='/logout' onClick={() => setShowNav(!showNav)} style={{
+                                        top: showNav ? '0' : '120px',
+                                        transitionDelay: showNav ? '1s' : '0s',
+                                    }}>Logout</Link>
+                                    <div className={styles.itemWrapper}></div>
+                                </li>
+                            </>
                             :
                             <>
                                 <li className={styles.navItem}>
