@@ -52,19 +52,15 @@ exports.getActivityReports = async (userId, page, limit) => {
 	const profile = await getUserProfile(userId);
 	const skip = (page - 1) * limit;
 
-	const totalDocumentsCount = await ActivityReport.countDocuments({
-		owner: profile._id,
-	});
-
-	if (totalDocumentsCount == 0) {
-		throw new CustomError(404, "You haven't created activity report yet.");
-	}
-
 	const activityReports = await ActivityReport.find({
 		owner: profile._id,
 	})
 		.skip(skip)
 		.limit(limit);
+
+	const totalDocumentsCount = await ActivityReport.countDocuments({
+		owner: profile._id,
+	});
 
 	return { activityReports, totalDocumentsCount };
 };
