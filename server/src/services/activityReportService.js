@@ -83,6 +83,7 @@ exports.getProgressInformation = async (userId, bodyGoalId) => {
 		(total, el) => total + el.caloriesComparedToBmr,
 		0
 	);
+
 	const kcalConvertedToKg = (totalCaloriesSum / 7700).toFixed(2);
 	return kcalConvertedToKg;
 };
