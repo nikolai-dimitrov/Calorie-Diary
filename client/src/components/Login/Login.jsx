@@ -8,7 +8,7 @@ import { validateAuth } from '../../utils/validateAuth';
 import styles from './login.module.css';
 
 export const Login = () => {
-    const { login, logout, serverError } = useAuthStore();
+    const { login, serverError, clearServerErrors } = useAuthStore();
     const navigate = useNavigate()
     const { formValues, formErrors, onChange, onSubmit, success, validateInput } = useForm({
         email: '',
@@ -16,6 +16,7 @@ export const Login = () => {
     }, login, validateAuth);
 
     useEffect(() => {
+        clearServerErrors()
         if (success == true) {
             navigate('/')
         }
@@ -32,8 +33,6 @@ export const Login = () => {
                     formErrors={formErrors}
                     serverError={serverError}
                     validateInput={validateInput} />
-                <button onClick={logout}>LOGOUT</button>
-
             </div>
         </section>
     )
