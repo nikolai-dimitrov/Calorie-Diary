@@ -10,7 +10,7 @@ import styles from './register.module.css';
 export const Register = () => {
     const { register, serverError, clearServerErrors } = useAuthStore()
     const navigate = useNavigate()
-    const { formValues, formErrors, onChange, onSubmit, success, validateInput } = useForm({
+    const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements, validateInput } = useForm({
         email: '',
         password: '',
         repeatPassword: '',
@@ -18,7 +18,6 @@ export const Register = () => {
 
     useEffect(() => {
         clearServerErrors();
-        console.log(success)
         if (success == true) {
             navigate('/')
         }
@@ -32,8 +31,11 @@ export const Register = () => {
                     formValues={formValues}
                     onSubmit={onSubmit}
                     onChange={onChange}
+                    onFocus={onFocus}
                     formErrors={formErrors}
                     serverError={serverError}
+                    focusedField={focusedField}
+                    fieldRequirements={fieldRequirements}
                     validateInput={validateInput}
                 />
             </div>

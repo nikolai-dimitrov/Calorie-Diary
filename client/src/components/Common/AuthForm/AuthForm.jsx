@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom'
 import styles from './auth-form.module.css';
 import { FaEye, FaKey, FaUser } from "react-icons/fa";
 
-export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverError, validateInput }) => {
+export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, serverError, focusedField, fieldRequirements, validateInput }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
     const location = useLocation();
@@ -14,7 +14,8 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
             return false;
         } else return true;
     })
-
+    console.log('RENDERING')
+    console.log('-------------')
     return (
         <div className={styles.formContainer}>
             {<h1>{registerForm ? 'Register' : 'Log In'}</h1>}
@@ -31,13 +32,16 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                             name='email'
                             onChange={onChange}
                             onBlur={(event) => validateInput(event)}
+                            onFocus={(event) => onFocus(event)}
                             value={formValues.email}
                         />
                     </div>
                     {
                         formErrors['email'] &&
-                        formErrors['email']?.map(errorMsg => <p className={styles.error} key={errorMsg}>{errorMsg}</p>)
+                        formErrors['email']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['email'] == true ? true : false} >{errorMsg}</p>)
+
                     }
+                    <p className={fieldRequirements['email']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['email'] == true ? false : true}>Enter email</p>
                 </div>
                 <div className={styles.inputContainer}>
                     <div>
@@ -49,6 +53,7 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                             name='password'
                             onChange={onChange}
                             onBlur={(event) => validateInput(event)}
+                            onFocus={(event) => onFocus(event)}
                             value={formValues.password}
                         />
 
@@ -56,8 +61,13 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                     </div>
                     {
                         formErrors['password'] &&
-                        formErrors['password']?.map(errorMsg => <p className={styles.error} key={errorMsg}>{errorMsg}</p>)
+                        formErrors['password']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['password'] == true ? true : false}>{errorMsg}</p>)
                     }
+                    <p className={fieldRequirements['password']['lengthRangeValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Characters range 6 and 16</p>
+                    <p className={fieldRequirements['password']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Only letters and numbers</p>
+
+
+
                 </div>
                 {registerForm &&
                     <>
@@ -71,13 +81,14 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                                     name='repeatPassword'
                                     onChange={onChange}
                                     onBlur={(event) => validateInput(event)}
+                                    onFocus={(event) => onFocus(event)}
                                     value={formValues.repeatPassword}
                                 />
                                 <FaEye className={styles.passwordReveal} onClick={() => setShowRepeatPassword(!showRepeatPassword)} />
                             </div>
                             {
                                 formErrors['repeatPassword'] &&
-                                formErrors['repeatPassword']?.map(errorMsg => <p className={styles.error} key={errorMsg}>{errorMsg}</p>)
+                                formErrors['repeatPassword']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['repeatPassword'] == true ? true : false}>{errorMsg}</p>)
                             }
                         </div>
 
@@ -87,7 +98,7 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                     {registerForm ? 'Register' : 'Log In'}
                 </button>
             </form>
-            {serverError && serverError.split('!').map(errorMsg => <p className={styles.error}>{errorMsg}</p>)}
+            {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={styles.error}>{errorMsg}</p>)}
             <div className={styles.footerContainer}>
                 {!registerForm &&
                     <div className={styles.footerTop}>
