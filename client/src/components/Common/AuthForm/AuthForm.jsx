@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom'
 
 import styles from './auth-form.module.css';
@@ -14,13 +14,18 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
             return false;
         } else return true;
     })
-    console.log('RENDERING')
-    console.log('-------------')
+
+    const handleSubmit = (event) => {
+        onSubmit(event)
+    }
+
+
     return (
         <div className={styles.formContainer}>
             {<h1>{registerForm ? 'Register' : 'Log In'}</h1>}
-            <form action="post"
-                onSubmit={onSubmit}
+            <form action=""
+                onSubmit={(event) => handleSubmit(event)}
+            // onSubmit={onSubmit}
             >
                 <div className={styles.inputContainer}>
                     <div>
@@ -41,6 +46,7 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                         formErrors['email']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['email'] == true ? true : false} >{errorMsg}</p>)
 
                     }
+                    {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
                     <p className={fieldRequirements['email']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['email'] == true ? false : true}>Enter email</p>
                 </div>
                 <div className={styles.inputContainer}>
@@ -63,10 +69,9 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                         formErrors['password'] &&
                         formErrors['password']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['password'] == true ? true : false}>{errorMsg}</p>)
                     }
+                    {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
                     <p className={fieldRequirements['password']['lengthRangeValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Characters range 6 and 16</p>
                     <p className={fieldRequirements['password']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Only letters and numbers</p>
-
-
 
                 </div>
                 {registerForm &&
@@ -94,7 +99,9 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
 
                     </>
                 }
-                <button>
+                <button
+                    onMouseDown={(event) => handleSubmit(event)}
+                >
                     {registerForm ? 'Register' : 'Log In'}
                 </button>
             </form>
