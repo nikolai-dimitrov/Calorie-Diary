@@ -10,7 +10,7 @@ import styles from './register.module.css';
 export const Register = () => {
     const { register, serverError, clearServerErrors } = useAuthStore()
     const navigate = useNavigate()
-    const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements, validateInput } = useForm({
+    const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements } = useForm({
         email: '',
         password: '',
         repeatPassword: '',
@@ -36,7 +36,6 @@ export const Register = () => {
                     serverError={serverError}
                     focusedField={focusedField}
                     fieldRequirements={fieldRequirements}
-                    validateInput={validateInput}
                 />
             </div>
         </section>

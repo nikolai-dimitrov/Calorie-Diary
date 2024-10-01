@@ -22,10 +22,6 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		setFormErrors((formErrors) => ({ ...formErrors, ...formErrorsBuffer }));
 	};
 
-	const checkFieldRequirements = () => {
-		console.log(fieldRequirements, "requirements");
-	};
-
 	const checkIsReadyToSubmit = () => {
 		for (const error in formErrors) {
 			if (formErrors[error].length > 0) {
@@ -36,55 +32,69 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		return true;
 	};
 
-	// Change field requirements paragraph hidden property
-	// Field requirements paragraph hidden or not depends on focusedField state. If focused true -> show paragraph, false-> hide paragraph
+	// Change field requirements paragraph hidden property.It Control displaying field error / field requirements
+	// When field is on Focus:
+	// --- If there is an error -> Hide error and show paragraph with field requirements
+	// --- If there isn't an error  -> Show paragraph with field requirement
+	// When field is not onFocus:
+	// --- Show field errors if any.
+	// --- Field requirements are hidden.
+
+	// When field is onFocus adds true into focusedField state for that field and AuthForm component will hide errors for that field if any AND shows field requirements.
+	// When field is not onFocus if there are errors they will be shown and requirements for that field will be hidden
 	const onFocus = (event) => {
-		setFocusedField((focusedField) => ({
-			...focusedField,
-			[event.target.name]: true,
-		}));
+		// console.log(event.target);
+
+		let fieldBuffer = {};
+		for (const field in focusedField) {
+			fieldBuffer[field] = false;
+		}
+
+		// onSubmit remove focus from all fields, else set focus on clicked field.
+		if (event.target.type == "submit") {
+			setFocusedField((state) => ({
+				...state,
+				...fieldBuffer,
+			}));
+		} else {
+			setFocusedField((state) => ({
+				...state,
+				...fieldBuffer,
+				[event.target.name]: true,
+			}));
+		}
 	};
 
+	// Validate input data for current field, checks whether the requirements are met.
 	const onChange = (event) => {
 		setFormValues((formValues) => ({
 			...formValues,
 			[event.target.name]: event.target.value,
 		}));
 
-		// If field requirements are completed then set to true -> AuthForm add success css class to field requirement paragraph
 		const { errors, currentFieldRequirements } = validator(event);
+
+		// If field requirements are completed then set to true -> AuthForm add success css class to field requirement paragraph
 		setFieldRequirements((state) => ({
 			...state,
 			...currentFieldRequirements,
 		}));
 
-		// Remove form errors for current field
+		// Set form errors for current field
 		setFormErrors((formErrors) => ({ ...formErrors, ...errors }));
 	};
 
 	const onSubmit = async (event) => {
-
 		event.preventDefault();
-		console.log("dsa");
+		console.log(formErrors, "submit");
+		onFocus(event);
 		checkEmptyFields();
-		// checkFieldRequirements();
 		const isReady = checkIsReadyToSubmit();
 		if (!isReady) return;
 		// Check if request is successful
+
 		const isSuccessful = await submitHandler(formValues);
 		setSuccess(isSuccessful);
-	};
-
-	// (onBlur) Validate field -> if there are any errors show error messages than remove current field focus and hide field requirements list
-	const validateInput = (event) => {
-		console.log("validate ONBLUR");
-		const { errors } = validator(event);
-
-		setFormErrors((state) => ({ ...state, ...errors }));
-		setFocusedField((focusedField) => ({
-			...focusedField,
-			[event.target.name]: false,
-		}));
 	};
 
 	return {
@@ -96,6 +106,5 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		success,
 		focusedField,
 		fieldRequirements,
-		validateInput,
 	};
 };

@@ -28,13 +28,11 @@ export const validateAuth = (event) => {
 	if (name == "email") {
 		const regex = /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/;
 		const isMatch = value.match(regex);
-		if (!isMatch && event.type == "blur") {
+		if (!isMatch) {
+			currentFieldRequirements[name]["isRegexValid"] = false;
 			errors.email.push("Please enter valid email.");
-		}
-		if (event.type == "change") {
-			isMatch
-				? (currentFieldRequirements[name]["isRegexValid"] = true)
-				: (currentFieldRequirements[name]["isRegexValid"] = false);
+		} else {
+			currentFieldRequirements[name]["isRegexValid"] = true;
 		}
 	}
 
@@ -42,22 +40,17 @@ export const validateAuth = (event) => {
 		const regex = /^[a-zA-Z0-9]+$/;
 
 		const isMatch = value.match(regex);
-		if (event.type == "blur") {
-			if (!isMatch) {
-				errors.password.push("Only letters and numbers allowed");
-			}
-			if (value.length < 6 || value.length > 16) {
-				errors.password.push("Should be between 6 and 16 characters");
-			}
+		if (!isMatch) {
+			currentFieldRequirements[name]["isRegexValid"] = false;
+			errors.password.push("Only letters and numbers allowed");
+		} else {
+			currentFieldRequirements[name]["isRegexValid"] = true;
 		}
-		if (event.type == "change") {
-			isMatch
-				? (currentFieldRequirements[name]["isRegexValid"] = true)
-				: (currentFieldRequirements[name]["isRegexValid"] = false);
-
-			value.length < 6 || value.length > 16
-				? (currentFieldRequirements[name]["lengthRangeValid"] = false)
-				: (currentFieldRequirements[name]["lengthRangeValid"] = true);
+		if (value.length < 6 || value.length > 16) {
+			currentFieldRequirements[name]["lengthRangeValid"] = false;
+			errors.password.push("Should be between 6 and 16 characters");
+		} else {
+			currentFieldRequirements[name]["lengthRangeValid"] = true;
 		}
 	}
 
@@ -65,15 +58,11 @@ export const validateAuth = (event) => {
 		const regex = /^[a-zA-Z0-9]+$/;
 
 		const isMatch = value.match(regex);
-		if (event.type == "blur") {
-			if (!isMatch) {
-				errors.repeatPassword.push("Only letters and numbers allowed");
-			}
-			if (value.length < 6 || value.length > 16) {
-				errors.repeatPassword.push(
-					"Should be between 6 and 16 characters"
-				);
-			}
+		if (!isMatch) {
+			errors.repeatPassword.push("Only letters and numbers allowed");
+		}
+		if (value.length < 6 || value.length > 16) {
+			errors.repeatPassword.push("Should be between 6 and 16 characters");
 		}
 	}
 
