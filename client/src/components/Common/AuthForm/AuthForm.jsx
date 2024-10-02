@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom'
 
 import styles from './auth-form.module.css';
 import { FaEye, FaKey, FaUser } from "react-icons/fa";
 
-export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverError, validateInput }) => {
+export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, serverError, focusedField, fieldRequirements }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
     const location = useLocation();
@@ -18,7 +18,7 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
     return (
         <div className={styles.formContainer}>
             {<h1>{registerForm ? 'Register' : 'Log In'}</h1>}
-            <form action="post"
+            <form action=""
                 onSubmit={onSubmit}
             >
                 <div className={styles.inputContainer}>
@@ -30,14 +30,19 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                             id='email'
                             name='email'
                             onChange={onChange}
-                            onBlur={(event) => validateInput(event)}
+                            onFocus={(event) => onFocus(event)}
                             value={formValues.email}
                         />
                     </div>
-                    {
-                        formErrors['email'] &&
-                        formErrors['email']?.map(errorMsg => <p className={styles.error} key={errorMsg}>{errorMsg}</p>)
-                    }
+                    <div>
+                        {
+                            formErrors['email'] &&
+                            formErrors['email']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['email'] == true ? true : false} >{errorMsg}</p>)
+
+                        }
+                    </div>
+                    {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
+                    <p className={fieldRequirements['email']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['email'] == true ? false : true}>Enter email</p>
                 </div>
                 <div className={styles.inputContainer}>
                     <div>
@@ -48,16 +53,23 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                             id='password'
                             name='password'
                             onChange={onChange}
-                            onBlur={(event) => validateInput(event)}
+                            onFocus={(event) => onFocus(event)}
                             value={formValues.password}
                         />
 
                         <FaEye className={styles.passwordReveal} onClick={() => setShowPassword(!showPassword)} />
                     </div>
-                    {
-                        formErrors['password'] &&
-                        formErrors['password']?.map(errorMsg => <p className={styles.error} key={errorMsg}>{errorMsg}</p>)
-                    }
+                    <div>
+                        {
+
+                            formErrors['password'] &&
+                            formErrors['password']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['password'] == true ? true : false}>{errorMsg}</p>)
+                        }
+                    </div>
+                    {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
+                    <p className={fieldRequirements['password']['lengthRangeValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Characters range 6 and 16</p>
+                    <p className={fieldRequirements['password']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Only letters and numbers</p>
+
                 </div>
                 {registerForm &&
                     <>
@@ -70,14 +82,14 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                                     id='repeatPassword'
                                     name='repeatPassword'
                                     onChange={onChange}
-                                    onBlur={(event) => validateInput(event)}
+                                    onFocus={(event) => onFocus(event)}
                                     value={formValues.repeatPassword}
                                 />
                                 <FaEye className={styles.passwordReveal} onClick={() => setShowRepeatPassword(!showRepeatPassword)} />
                             </div>
                             {
                                 formErrors['repeatPassword'] &&
-                                formErrors['repeatPassword']?.map(errorMsg => <p className={styles.error} key={errorMsg}>{errorMsg}</p>)
+                                formErrors['repeatPassword']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['repeatPassword'] == true ? true : false}>{errorMsg}</p>)
                             }
                         </div>
 
@@ -87,7 +99,7 @@ export const AuthForm = ({ formValues, onSubmit, onChange, formErrors, serverErr
                     {registerForm ? 'Register' : 'Log In'}
                 </button>
             </form>
-            {serverError && serverError.split('!').map(errorMsg => <p className={styles.error}>{errorMsg}</p>)}
+            {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={styles.error}>{errorMsg}</p>)}
             <div className={styles.footerContainer}>
                 {!registerForm &&
                     <div className={styles.footerTop}>

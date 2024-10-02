@@ -10,7 +10,7 @@ import styles from './login.module.css';
 export const Login = () => {
     const { login, serverError, clearServerErrors } = useAuthStore();
     const navigate = useNavigate()
-    const { formValues, formErrors, onChange, onSubmit, success, validateInput } = useForm({
+    const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements } = useForm({
         email: '',
         password: '',
     }, login, validateAuth);
@@ -30,9 +30,12 @@ export const Login = () => {
                     formValues={formValues}
                     onSubmit={onSubmit}
                     onChange={onChange}
+                    onFocus={onFocus}
                     formErrors={formErrors}
                     serverError={serverError}
-                    validateInput={validateInput} />
+                    focusedField={focusedField}
+                    fieldRequirements={fieldRequirements}
+                />
             </div>
         </section>
     )
