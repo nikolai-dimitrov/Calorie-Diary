@@ -12,7 +12,7 @@ export const useForm = (initialValues, submitHandler, validator) => {
 	const [success, setSuccess] = useState(false);
 
 	// If there aren't any form errors and field/fields are empty show message: field is required
-	const checkEmptyFields = () => {
+	const throwIfFieldsAreEmpty = () => {
 		let formErrorsBuffer = formErrors;
 		for (const key in formValues) {
 			if (formValues[key] == "" && formErrorsBuffer[key].length == 0) {
@@ -22,50 +22,49 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		setFormErrors((formErrors) => ({ ...formErrors, ...formErrorsBuffer }));
 	};
 
-	const checkIsReadyToSubmit = () => {
+	const checkFormErrors = () => {
 		for (const error in formErrors) {
 			if (formErrors[error].length > 0) {
-				return false;
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	};
 
-	// Change field requirements paragraph hidden property.It Control displaying field error / field requirements
-	// When field is on Focus:
-	// --- If there is an error -> Hide error and show paragraph with field requirements
-	// --- If there isn't an error  -> Show paragraph with field requirement
-	// When field is not onFocus:
-	// --- Show field errors if any.
-	// --- Field requirements are hidden.
+	// * It sets all properties into focusedField state to false.
+	//   1. When focusedField property = false -> AuthForm component shows error for that field if any and hide field requirements.
+	//  (Invoke onSubmit)
+	const hideRequirementsShowErrors = () => {
+		let focusedFields = Object.fromEntries(
+			Object.entries(focusedField).map((el) => [el[0], (el[1] = false)])
+		);
 
-	// When field is onFocus adds true into focusedField state for that field and AuthForm component will hide errors for that field if any AND shows field requirements.
-	// When field is not onFocus if there are errors they will be shown and requirements for that field will be hidden
+		setFocusedField((state) => ({
+			...focusedFields,
+		}));
+	};
+
+	// * When field is onFocus it sets property for that field in focusedField state to true AND false for other fields.
+	//   1. When focusField state property = true: -> field requirements for that field are visible for the user instead of errors if any.
+	const hideErrorShowRequirements = (event) => {
+		let focusedFields = Object.fromEntries(
+			Object.entries(focusedField).map((el) => [el[0], (el[1] = false)])
+		);
+
+		const focusedFieldName = event.target.name;
+
+		setFocusedField((state) => ({
+			...focusedFields,
+			[focusedFieldName]: true,
+		}));
+	};
+
 	const onFocus = (event) => {
-		// console.log(event.target);
-
-		let fieldBuffer = {};
-		for (const field in focusedField) {
-			fieldBuffer[field] = false;
-		}
-
-		// onSubmit remove focus from all fields, else set focus on clicked field.
-		if (event.target.type == "submit") {
-			setFocusedField((state) => ({
-				...state,
-				...fieldBuffer,
-			}));
-		} else {
-			setFocusedField((state) => ({
-				...state,
-				...fieldBuffer,
-				[event.target.name]: true,
-			}));
-		}
+		hideErrorShowRequirements(event);
 	};
 
-	// Validate input data for current field, checks whether the requirements are met.
+	// Validate input data for current field and checks whether the requirements are met.
 	const onChange = (event) => {
 		setFormValues((formValues) => ({
 			...formValues,
@@ -86,13 +85,15 @@ export const useForm = (initialValues, submitHandler, validator) => {
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
-		console.log(formErrors, "submit");
-		onFocus(event);
-		checkEmptyFields();
-		const isReady = checkIsReadyToSubmit();
-		if (!isReady) return;
-		// Check if request is successful
+		throwIfFieldsAreEmpty();
+		const errors = checkFormErrors();
 
+		if (errors) {
+			hideRequirementsShowErrors();
+			return;
+		}
+
+		// Check if request is successful
 		const isSuccessful = await submitHandler(formValues);
 		setSuccess(isSuccessful);
 	};
@@ -108,3 +109,5 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		fieldRequirements,
 	};
 };
+
+// Da napravq funciq po elegantno da ne e s for loop da setva i premahva fokusite
