@@ -4,22 +4,21 @@ import { useLocation, Link } from 'react-router-dom'
 import styles from './auth-form.module.css';
 import { FaEye, FaKey, FaUser } from "react-icons/fa";
 
-export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, serverError, focusedField, fieldRequirements }) => {
+export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, serverError, focusedField, fieldRequirements, inputRefsMapper }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
     const location = useLocation();
-
     const [registerForm, setRegisterForm] = useState(() => {
         if (location.pathname.includes("/login")) {
             return false;
         } else return true;
     })
-
+    console.log(focusedField)
     return (
         <div className={styles.formContainer}>
             {<h1>{registerForm ? 'Register' : 'Log In'}</h1>}
             <form action=""
-                onSubmit={onSubmit}
+                onSubmit={(event) => onSubmit(event)}
             >
                 <div className={styles.inputContainer}>
                     <div>
@@ -32,6 +31,8 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                             onChange={onChange}
                             onFocus={(event) => onFocus(event)}
                             value={formValues.email}
+                            ref={inputRefsMapper['email']}
+                            className={formErrors['email'].length && focusedField['email'] == false > 0 ? `${styles.inputError}` : ''}
                         />
                     </div>
                     <div>
@@ -55,6 +56,8 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                             onChange={onChange}
                             onFocus={(event) => onFocus(event)}
                             value={formValues.password}
+                            ref={inputRefsMapper['password']}
+                            className={formErrors['password'].length > 0 && focusedField['password'] == false ? `${styles.inputError}` : ''}
                         />
 
                         <FaEye className={styles.passwordReveal} onClick={() => setShowPassword(!showPassword)} />
@@ -84,6 +87,8 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                                     onChange={onChange}
                                     onFocus={(event) => onFocus(event)}
                                     value={formValues.repeatPassword}
+                                    ref={inputRefsMapper['repeatPassword']}
+                                    className={formErrors['repeatPassword'].length > 0 && focusedField['repeatPassword'] == false ? `${styles.inputError}` : ''}
                                 />
                                 <FaEye className={styles.passwordReveal} onClick={() => setShowRepeatPassword(!showRepeatPassword)} />
                             </div>

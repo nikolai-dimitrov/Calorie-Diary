@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 export const useForm = (initialValues, submitHandler, validator) => {
 	const [formValues, setFormValues] = useState(initialValues);
 	const [formErrors, setFormErrors] = useState(() => {
@@ -10,6 +10,15 @@ export const useForm = (initialValues, submitHandler, validator) => {
 	const [focusedField, setFocusedField] = useState(initialValues);
 	const [fieldRequirements, setFieldRequirements] = useState(initialValues);
 	const [success, setSuccess] = useState(false);
+
+	// Create ref for every key of initial values and map that ref with the key
+	// email:useRef(),
+	const inputRefsMapper = Object.fromEntries(
+		Object.entries(initialValues).map((el) => {
+			let currentRef = useRef();
+			return [el[0], currentRef];
+		})
+	);
 
 	// If there aren't any form errors and field/fields are empty show message: field is required
 	const throwIfFieldsAreEmpty = () => {
@@ -25,11 +34,15 @@ export const useForm = (initialValues, submitHandler, validator) => {
 	const checkFormErrors = () => {
 		for (const error in formErrors) {
 			if (formErrors[error].length > 0) {
-				return true;
+				return error;
 			}
 		}
 
 		return false;
+	};
+
+	const focusFirstFieldWithError = (error) => {
+		inputRefsMapper[error].current.focus();
 	};
 
 	// * It sets all properties into focusedField state to false.
@@ -86,10 +99,10 @@ export const useForm = (initialValues, submitHandler, validator) => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		throwIfFieldsAreEmpty();
-		const errors = checkFormErrors();
-
-		if (errors) {
+		const error = checkFormErrors();
+		if (error) {
 			hideRequirementsShowErrors();
+			focusFirstFieldWithError(error);
 			return;
 		}
 
@@ -107,7 +120,6 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		success,
 		focusedField,
 		fieldRequirements,
+		inputRefsMapper,
 	};
 };
-
-// Da napravq funciq po elegantno da ne e s for loop da setva i premahva fokusite
