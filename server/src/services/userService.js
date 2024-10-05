@@ -32,7 +32,7 @@ exports.register = async (userData) => {
 	const user = await User.create(userData);
 	// TODO: DB ERRORS -> create error handling
 	const result = getAuthResult(user);
-	result.hasProfile = false;
+	result.user.hasProfile = false;
 	return result;
 };
 
@@ -49,8 +49,9 @@ exports.login = async ({ email, password }) => {
 	}
 
 	const result = await getAuthResult(user);
+
 	const hasProfile = await getUserProfile(result.user._id, true);
-	result.hasProfile = hasProfile;
+	result.user.hasProfile = hasProfile;
 
 	return result;
 };
