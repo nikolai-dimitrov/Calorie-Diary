@@ -9,12 +9,17 @@ form {
 	margin-bottom: 20px;
 }
 
+.editFormContent {
+	height: 72%;
+}
+
 .formContent .leftSide {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	width: 45%;
 }
+
 .formContent .leftSide div {
 	position: relative;
 }
@@ -28,19 +33,25 @@ form {
 	border-left: 3px solid white;
 }
 
+.formContent .leftSide .editInput {
+	padding: 9px 0 9px 25px;
+}
+
 .formContent .leftSide .formIcons {
 	position: absolute;
 	left: 6px;
 	top: 50%;
 	transform: translateY(-50%);
 }
+
 .leftSide label {
 	position: absolute;
 	top: -12px;
-	padding: 0px 5px 0px 5px;
-	left: 24px;
+	padding: 0px 4px 0px 4px;
+	left: 30px;
 	background: #414141;
 }
+
 /* Right side of the form */
 .formContent .rightSide {
 	width: 45%;

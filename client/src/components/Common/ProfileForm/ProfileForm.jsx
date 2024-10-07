@@ -14,31 +14,31 @@ export const ProfileForm = () => {
     return (
         <>
             <form action="">
-                <div className={styles.formContent}>
+                <div className={editProfileForm ? `${styles.formContent} ${styles.editFormContent}` : `${styles.formContent}`}>
                     <div className={styles.leftSide}>
                         <div>
                             {editProfileForm && <label htmlFor="age">Age</label>}
-                            <input type="number" name='age' id='age' placeholder='Age' />
+                            <input type="number" name='age' id='age' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Age'} />
                             <GiAges className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="height">Height</label>}
-                            <input type="number" name='height' id='height' placeholder='Height' />
+                            <input type="number" name='height' id='height' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Height'} />
                             <GiBodyHeight className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="currentWeight">Current Weight</label>}
-                            <input type="number" name='currentWeight' id='currentWeight' placeholder='Current Weight' />
+                            <input type="number" name='currentWeight' id='currentWeight' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Current Weight'} />
                             <GiWeightScale className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="targetWeight">Target Weight</label>}
-                            <input type="number" name='targetWeight' id='targetWeight' placeholder='Target Weight' />
+                            <input type="number" name='targetWeight' id='targetWeight' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Target Weight'} />
                             <ImTarget className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="caloriesGoal">Calories Goal</label>}
-                            <input type="number" name='caloriesGoal' id='caloriesGoal' placeholder='Calories Goal' />
+                            <input type="number" name='caloriesGoal' id='caloriesGoal' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Calories Goal'} />
                             <GiMeal className={styles.formIcons} />
                         </div>
                     </div>
@@ -82,7 +82,7 @@ export const ProfileForm = () => {
                         </div>
                     </div>
                 </div>
-                <button>Create</button>
+                <button>{editProfileForm ? 'Edit' : 'Create'}</button>
             </form>
         </>
     )
