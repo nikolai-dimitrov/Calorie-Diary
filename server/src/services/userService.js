@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("../lib/jwt");
 const { JWT_SECRET } = require("../constants");
 const CustomError = require("../utils/CustomError");
+const getUserProfile = require("../helpers/getUserProfile");
 
 const getAuthResult = async (user) => {
 	const payload = { _id: user._id, email: user.email };
@@ -31,6 +32,7 @@ exports.register = async (userData) => {
 	const user = await User.create(userData);
 	// TODO: DB ERRORS -> create error handling
 	const result = getAuthResult(user);
+	result.user.hasProfile = false;
 	return result;
 };
 
@@ -46,7 +48,11 @@ exports.login = async ({ email, password }) => {
 		throw new CustomError(401, "Invalid email or password");
 	}
 
-	const result = getAuthResult(user);
+	const result = await getAuthResult(user);
+
+	const hasProfile = await getUserProfile(result.user._id, true);
+	result.user.hasProfile = hasProfile;
+
 	return result;
 };
 

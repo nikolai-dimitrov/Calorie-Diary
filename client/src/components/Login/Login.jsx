@@ -8,7 +8,7 @@ import { validateAuth } from '../../utils/validateAuth';
 import styles from './login.module.css';
 
 export const Login = () => {
-    const { login, serverError, clearServerErrors } = useAuthStore();
+    const { login, user, serverError, clearServerErrors } = useAuthStore();
     const navigate = useNavigate()
     const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements, inputRefsMapper } = useForm({
         email: '',
@@ -17,8 +17,11 @@ export const Login = () => {
 
     useEffect(() => {
         clearServerErrors()
-        if (success == true) {
+        if (success == true && user.hasProfile) {
             navigate('/')
+        } else if (success == true && user.hasProfile == false) {
+            navigate('/profile/create')
+
         }
     }, [success])
 
