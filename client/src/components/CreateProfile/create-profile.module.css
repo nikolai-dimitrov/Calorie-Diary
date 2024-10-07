@@ -1,0 +1,12 @@
+.createProfile {
+	display: flex;
+	background: #414141;
+	border-radius: 12px;
+}
+.imgContainer {
+	width: 50%;
+}
+img {
+	border-top-left-radius: 12px;
+	border-bottom-left-radius: 12px;
+}
