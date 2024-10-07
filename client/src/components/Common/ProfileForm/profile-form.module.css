@@ -1,0 +1,96 @@
+form {
+	width: 50%;
+	padding: 2em;
+}
+
+.formContent {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.formContent .leftSide {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 45%;
+}
+.formContent .leftSide div {
+	position: relative;
+}
+
+.formContent .leftSide input {
+	padding: 4px 0 4px 25px;
+	border: 1px solid white;
+	border-radius: 7px;
+	background-color: #414141;
+	/* box-shadow: -4px 1px 0px 0px #585858; */
+	border-left: 3px solid white;
+}
+
+.formContent .leftSide .formIcons {
+	position: absolute;
+	left: 6px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.leftSide label {
+	position: absolute;
+	top: -12px;
+	padding: 0px 5px 0px 5px;
+	left: 24px;
+	background: #414141;
+}
+/* Right side of the form */
+.formContent .rightSide {
+	width: 45%;
+}
+
+.bodyGoalsContainer {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid white;
+	position: relative;
+	padding: 20px 0px 20px 20px;
+	margin-bottom: 25px;
+}
+
+.genderContainer {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid white;
+	position: relative;
+	padding: 20px 0px 20px 20px;
+}
+
+.rightSide div div {
+	display: flex;
+	align-items: center;
+}
+
+h3 {
+	position: absolute;
+	top: -16px;
+	left: 13px;
+	background: #414141;
+	padding: 0px 5px 0px 5px;
+}
+
+.rightSide label {
+	display: flex;
+	width: 70%;
+	justify-content: space-between;
+	padding-left: 10px;
+}
+
+input[type="radio"] {
+	accent-color: white;
+	margin-left: 10px;
+}
+
+button {
+	width: 204px;
+	border-radius: 7px;
+	border: 1px solid #414141;
+	padding: 3px 10px;
+}
