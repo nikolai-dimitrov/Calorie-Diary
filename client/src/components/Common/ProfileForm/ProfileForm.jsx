@@ -6,7 +6,7 @@ import { FaLongArrowAltDown, FaLongArrowAltUp, FaArrowsAltH } from "react-icons/
 import styles from './profile-form.module.css';
 export const ProfileForm = () => {
     const [editProfileForm, setEditProfileForm] = useState(() => {
-        if (location.pathname.includes("/create")) {
+        if (location.pathname.includes("/edit")) {
             return true;
         } else return false;
     })
@@ -18,27 +18,27 @@ export const ProfileForm = () => {
                     <div className={styles.leftSide}>
                         <div>
                             {editProfileForm && <label htmlFor="age">Age</label>}
-                            <input type="number" name='age' id='age' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Age'} />
+                            <input type="number" name='age' id='age' className={editProfileForm ? styles.editInput : ''} placeholder={editProfileForm ? '' : 'Age'} />
                             <GiAges className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="height">Height</label>}
-                            <input type="number" name='height' id='height' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Height'} />
+                            <input type="number" name='height' id='height' className={editProfileForm ? styles.editInput : ''} placeholder={editProfileForm ? '' : 'Height'} />
                             <GiBodyHeight className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="currentWeight">Current Weight</label>}
-                            <input type="number" name='currentWeight' id='currentWeight' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Current Weight'} />
+                            <input type="number" name='currentWeight' id='currentWeight' className={editProfileForm ? styles.editInput : ''} placeholder={editProfileForm ? '' : 'Current Weight'} />
                             <GiWeightScale className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="targetWeight">Target Weight</label>}
-                            <input type="number" name='targetWeight' id='targetWeight' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Target Weight'} />
+                            <input type="number" name='targetWeight' id='targetWeight' className={editProfileForm ? styles.editInput : ''} placeholder={editProfileForm ? '' : 'Target Weight'} />
                             <ImTarget className={styles.formIcons} />
                         </div>
                         <div>
                             {editProfileForm && <label htmlFor="caloriesGoal">Calories Goal</label>}
-                            <input type="number" name='caloriesGoal' id='caloriesGoal' className={editProfileForm && styles.editInput} placeholder={editProfileForm ? '' : 'Calories Goal'} />
+                            <input type="number" name='caloriesGoal' id='caloriesGoal' className={editProfileForm ? styles.editInput : ''} placeholder={editProfileForm ? '' : 'Calories Goal'} />
                             <GiMeal className={styles.formIcons} />
                         </div>
                     </div>
