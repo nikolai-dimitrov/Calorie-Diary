@@ -8,6 +8,7 @@ import { Logout } from './components/Logout/Logout';
 import { Diary } from './components/Diary/Diary';
 import { Profile } from './components/Profile/Profile';
 import { CreateProfile } from './components/CreateProfile/CreateProfile';
+import { EditProfile } from './components/EditProfile/EditProfile';
 import { AuthRequiredRouteGuard } from './components/Common/RouteGuards/AuthRequiredRouteGuard/AuthRequiredRouteGuard';
 import { GuestRequiredRouteGuard } from './components/Common/RouteGuards/GuestRequiredRouteGuard/GuestRequiredRouteGuard';
 import { ProfileRequiredRouteGuard, NoProfileRequiredRouteGuard } from './components/Common/RouteGuards/ProfileRequiredRouteGuard/ProfileRequiredRouteGuard';
@@ -56,6 +57,15 @@ function App() {
 							<AuthRequiredRouteGuard>
 								<NoProfileRequiredRouteGuard>
 									<CreateProfile />
+								</NoProfileRequiredRouteGuard>
+							</AuthRequiredRouteGuard>
+						}
+					/>
+					<Route path='/profile/edit'
+						element={
+							<AuthRequiredRouteGuard>
+								<NoProfileRequiredRouteGuard>
+									<EditProfile />
 								</NoProfileRequiredRouteGuard>
 							</AuthRequiredRouteGuard>
 						}
