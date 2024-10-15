@@ -13,7 +13,7 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
             return false;
         } else return true;
     })
-    console.log(focusedField)
+
     return (
         <div className={styles.formContainer}>
             {<h1>{registerForm ? 'Register' : 'Log In'}</h1>}

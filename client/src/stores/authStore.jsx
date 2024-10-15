@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
 import { authServiceFactory } from '../services/authService'
 
-
 export const useAuthStore = create(
 	devtools(
 		persist(
