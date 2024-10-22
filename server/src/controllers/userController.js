@@ -30,7 +30,7 @@ router.post("/login", isAuthRequired(false), async (req, res, next) => {
 
 		res.status(200).json({
 			status: "success",
-			data: result,
+			data: result, // TODO: Return data : {user: {_id:'exampleId',email:'email@abv.bg', accessToken:'exampleAccessToken'}}
 		});
 	} catch (error) {
 		next(error);
