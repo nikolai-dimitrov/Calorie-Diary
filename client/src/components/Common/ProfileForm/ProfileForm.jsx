@@ -11,7 +11,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
         if (location.pathname.includes("/edit")) {
             return true;
         } else return false;
-    })
+    });
 
     return (
         <>
@@ -96,7 +96,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             <h3>Select Body Goal</h3>
                             <div>
                                 <FaLongArrowAltDown />
-                                <label htmlFor="">
+                                <label htmlFor="loseWeight">
                                     Lose Weight
                                     <input type="radio"
                                         name='bodyGoal'
@@ -109,7 +109,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             </div>
                             <div>
                                 <FaLongArrowAltUp />
-                                <label htmlFor="">
+                                <label htmlFor="gainWeight">
                                     Gain Weight
                                     <input type="radio"
                                         name='bodyGoal'
@@ -121,14 +121,13 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             </div>
                             <div>
                                 <FaArrowsAltH />
-                                <label htmlFor="">
+                                <label htmlFor="maintainWeight">
                                     Maintain Weight
                                     <input type="radio"
                                         name='bodyGoal'
                                         id='maintainWeight'
                                         value='Maintain Weight'
                                         onChange={onChange}
-
                                     />
                                 </label>
                             </div>
@@ -137,7 +136,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             <h3>Select Gender</h3>
                             <div>
                                 <IoManSharp />
-                                <label htmlFor="">
+                                <label htmlFor="male">
                                     Male
                                     <input
                                         type="radio"
@@ -151,7 +150,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             </div>
                             <div>
                                 <IoWoman />
-                                <label htmlFor="">
+                                <label htmlFor="female">
                                     Female
                                     <input type="radio"
                                         name='gender'
