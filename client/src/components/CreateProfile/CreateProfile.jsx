@@ -14,8 +14,8 @@ export const CreateProfile = () => {
         currentWeight: '',
         targetWeight: '',
         caloriesGoal: '',
-        bodyGoal: '',
-        gender: '',
+        bodyGoal: 'Lose Weight',
+        gender: 'male',
     },
         //  register, validateAuth and server error field who is passed into create profile form come from zustand store
     );
