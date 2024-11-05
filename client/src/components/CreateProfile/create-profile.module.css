@@ -2,6 +2,7 @@
 	display: flex;
 	background: #414141;
 	border-radius: 12px;
+	margin-bottom: 50px;
 }
 .imgContainer {
 	width: 50%;
@@ -9,4 +10,55 @@
 img {
 	border-top-left-radius: 12px;
 	border-bottom-left-radius: 12px;
+}
+.steps {
+	display: flex;
+	list-style-type: none;
+	justify-content: space-between;
+	padding: 0px;
+}
+
+.step {
+	width: 33%;
+	background: red;
+	background-color: #414141;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.step h4 {
+	font-size: 2em;
+	text-align: center;
+}
+
+.step div {
+	margin: 0 auto;
+	padding-bottom: 30px;
+	padding: 20px 0 30px 0;
+}
+
+.tickIcon {
+	font-size: 80px;
+	color: #414141;
+	color: white;
+
+	margin: 0 auto;
+	border-radius: 100%;
+	background-color: green;
+}
+
+.loadingIcon {
+	font-size: 80px;
+	margin: 0 auto;
+	color: white;
+}
+
+.profileIcon {
+	font-size: 80px;
+	margin: 0 auto;
+}
+
+.step:nth-child(2) {
+	background-color: orange;
 }
