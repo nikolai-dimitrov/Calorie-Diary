@@ -31,8 +31,8 @@ exports.register = async (userData) => {
 
 	const user = await User.create(userData);
 	// TODO: DB ERRORS -> create error handling
-	const result = getAuthResult(user);
-	result.user.hasProfile = false;
+	const result = await getAuthResult(user);
+	result.user["hasProfile"] = false;
 	return result;
 };
 
