@@ -15,7 +15,9 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
 
     return (
         <>
-            <form action="">
+            <form action=""
+                onSubmit={(event) => onSubmit(event)}
+            >
                 <div className={editProfileForm ? `${styles.formContent} ${styles.editFormContent}` : `${styles.formContent}`}>
                     <div className={styles.leftSide}>
                         <div>
