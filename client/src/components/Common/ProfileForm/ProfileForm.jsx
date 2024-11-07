@@ -4,6 +4,7 @@ import { GiBodyHeight, GiAges, GiWeightScale, GiMeal } from "react-icons/gi";
 import { ImTarget } from "react-icons/im";
 import { IoWoman, IoManSharp } from "react-icons/io5";
 import { FaLongArrowAltDown, FaLongArrowAltUp, FaArrowsAltH } from "react-icons/fa";
+
 import styles from './profile-form.module.css';
 
 export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, focusedField, fieldRequirements, inputRefsMapper }) => {
@@ -17,6 +18,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
         <>
             <form action=""
                 onSubmit={(event) => onSubmit(event)}
+                className={styles.profileForm}
             >
                 <div className={editProfileForm ? `${styles.formContent} ${styles.editFormContent}` : `${styles.formContent}`}>
                     <div className={styles.leftSide}>
@@ -166,7 +168,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                         </div>
                     </div>
                 </div>
-                <button>{editProfileForm ? 'Edit' : 'Create'}</button>
+                <button className={styles.profileBtn}>{editProfileForm ? 'Edit' : 'Create'}</button>
             </form>
         </>
     )

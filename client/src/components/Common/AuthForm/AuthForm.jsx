@@ -100,7 +100,7 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
 
                     </>
                 }
-                <button>
+                <button className={styles.authBtn}>
                     {registerForm ? 'Register' : 'Log In'}
                 </button>
             </form>
