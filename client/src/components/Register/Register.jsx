@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthForm } from '../Common/AuthForm/AuthForm';
 import { useForm } from '../../hooks/useForm';
 import { useAuthStore } from '../../stores/authStore';
-import { validateAuth } from '../../utils/validateAuth';
+import { validateAuth } from '../Common/AuthForm/validateAuth';
 
 import styles from './register.module.css';
 

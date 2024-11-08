@@ -1,7 +1,7 @@
 import { ProfileForm } from '../Common/ProfileForm/ProfileForm';
 import { useForm } from '../../hooks/useForm';
 import { useProfileStore } from '../../stores/profileStore';
-import { validateProfile } from '../../utils/validateProfile';
+import { validateProfile } from '../Common/ProfileForm/validateProfile';
 
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
