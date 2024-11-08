@@ -1,4 +1,4 @@
-import { requirementsMapper } from "../components/Common/ProfileForm/profileFormRequirements";
+import { requirementsMapper } from "./profileFormRequirements";
 
 export const validateProfile = (event) => {
 	const name = event.target.name;

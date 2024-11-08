@@ -1,17 +1,4 @@
-const emailFieldRequirements = {
-	isRegexValid: false,
-};
-
-const passwordFieldRequirements = {
-	lengthRangeValid: false,
-	isRegexValid: false,
-};
-
-const requirementsMapper = {
-	email: emailFieldRequirements,
-	password: passwordFieldRequirements,
-};
-
+import { requirementsMapper } from "./authFormRequirements";
 export const validateAuth = (event) => {
 	const name = event.target.name;
 	const value = event.target.value;
