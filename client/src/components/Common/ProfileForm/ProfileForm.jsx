@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { fieldRequirementKeysAndMessages } from "./profileFormRequirements"
 import { GiBodyHeight, GiAges, GiWeightScale, GiMeal } from "react-icons/gi";
 import { ImTarget } from "react-icons/im";
 import { IoWoman, IoManSharp } from "react-icons/io5";
@@ -38,6 +39,20 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             />
                         </div>
                         <div>
+                            {
+                                formErrors['age'] &&
+                                formErrors['age']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['age'] == true ? true : false} >{errorMsg}</p>)
+
+                            }
+                        </div>
+                        {fieldRequirementKeysAndMessages['age'].map((requirementArray) => {
+                            const fieldRequirementKey = requirementArray[0];
+                            const fieldRequirementMessage = requirementArray[1]
+                            return <p className={fieldRequirements['age'][fieldRequirementKey] ? `success` : ``} hidden={focusedField['age'] == true ? false : true} key={fieldRequirementMessage}>{fieldRequirementMessage}</p>
+                        })}
+
+
+                        <div>
                             {editProfileForm && <label htmlFor="height">Height</label>}
                             <input
                                 type="number"
@@ -53,6 +68,18 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             />
                         </div>
                         <div>
+                            {
+                                formErrors['height'] &&
+                                formErrors['height']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['height'] == true ? true : false} >{errorMsg}</p>)
+
+                            }
+                        </div>
+                        {fieldRequirementKeysAndMessages['height'].map((requirementArray) => {
+                            const fieldRequirementKey = requirementArray[0];
+                            const fieldRequirementMessage = requirementArray[1]
+                            return <p className={fieldRequirements['height'][fieldRequirementKey] ? `success` : ``} hidden={focusedField['height'] == true ? false : true} key={fieldRequirementMessage}>{fieldRequirementMessage}</p>
+                        })}
+                        <div>
                             {editProfileForm && <label htmlFor="currentWeight">Current Weight</label>}
                             <input
                                 type="number"
@@ -66,6 +93,18 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                 placeholder={editProfileForm ? '' : 'Current Weight'} />
                             <GiWeightScale className={styles.formIcons} />
                         </div>
+                        <div>
+                            {
+                                formErrors['currentWeight'] &&
+                                formErrors['currentWeight']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['currentWeight'] == true ? true : false} >{errorMsg}</p>)
+
+                            }
+                        </div>
+                        {fieldRequirementKeysAndMessages['currentWeight'].map((requirementArray) => {
+                            const fieldRequirementKey = requirementArray[0];
+                            const fieldRequirementMessage = requirementArray[1]
+                            return <p className={fieldRequirements['currentWeight'][fieldRequirementKey] ? `success` : ``} hidden={focusedField['currentWeight'] == true ? false : true} key={fieldRequirementMessage}>{fieldRequirementMessage}</p>
+                        })}
                         <div>
                             {editProfileForm && <label htmlFor="targetWeight">Target Weight</label>}
                             <input
@@ -81,6 +120,18 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             <ImTarget className={styles.formIcons} />
                         </div>
                         <div>
+                            {
+                                formErrors['targetWeight'] &&
+                                formErrors['targetWeight']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['targetWeight'] == true ? true : false} >{errorMsg}</p>)
+
+                            }
+                        </div>
+                        {fieldRequirementKeysAndMessages['targetWeight'].map((requirementArray) => {
+                            const fieldRequirementKey = requirementArray[0];
+                            const fieldRequirementMessage = requirementArray[1]
+                            return <p className={fieldRequirements['targetWeight'][fieldRequirementKey] ? `success` : ``} hidden={focusedField['targetWeight'] == true ? false : true} key={fieldRequirementMessage}>{fieldRequirementMessage}</p>
+                        })}
+                        <div>
                             {editProfileForm && <label htmlFor="caloriesGoal">Calories Goal</label>}
                             <input
                                 type="number"
@@ -94,6 +145,18 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                 placeholder={editProfileForm ? '' : 'Calories Goal'} />
                             <GiMeal className={styles.formIcons} />
                         </div>
+                        <div>
+                            {
+                                formErrors['caloriesGoal'] &&
+                                formErrors['caloriesGoal']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['caloriesGoal'] == true ? true : false} >{errorMsg}</p>)
+
+                            }
+                        </div>
+                        {fieldRequirementKeysAndMessages['caloriesGoal'].map((requirementArray) => {
+                            const fieldRequirementKey = requirementArray[0];
+                            const fieldRequirementMessage = requirementArray[1]
+                            return <p className={fieldRequirements['caloriesGoal'][fieldRequirementKey] ? `success` : ``} hidden={focusedField['caloriesGoal'] == true ? false : true} key={fieldRequirementMessage}>{fieldRequirementMessage}</p>
+                        })}
                     </div>
                     <div className={styles.rightSide}>
                         <div className={styles.bodyGoalsContainer}>
