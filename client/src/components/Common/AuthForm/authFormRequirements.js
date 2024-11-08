@@ -46,7 +46,12 @@ const requirementsMapper = {
 */
 
 export const fieldRequirementKeysAndMessages = {
-	email: [["isNumberRangeValid", "Enter age between 1 and 100"]],
-	password: [["isNumberRangeValid", "Enter height between 100 and 270 cm"]],
+	email: [
+        ["isRegexValid", "Enter email"],
+    ],
+	password: [
+        ["lengthRangeValid", "Characters range 6 and 16"],
+        ["isRegexValid","Only letters and numbers"],
+],
 
 };
