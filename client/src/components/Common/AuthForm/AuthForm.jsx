@@ -38,12 +38,12 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                     <div>
                         {
                             formErrors['email'] &&
-                            formErrors['email']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['email'] == true ? true : false} >{errorMsg}</p>)
+                            formErrors['email']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['email'] == true ? true : false} >{errorMsg}</p>)
 
                         }
                     </div>
                     {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
-                    <p className={fieldRequirements['email']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['email'] == true ? false : true}>Enter email</p>
+                    <p className={fieldRequirements['email']['isRegexValid'] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['email'] == true ? false : true}>Enter email</p>
                 </div>
                 <div className={styles.inputContainer}>
                     <div>
@@ -66,12 +66,12 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                         {
 
                             formErrors['password'] &&
-                            formErrors['password']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['password'] == true ? true : false}>{errorMsg}</p>)
+                            formErrors['password']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['password'] == true ? true : false}>{errorMsg}</p>)
                         }
                     </div>
                     {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
-                    <p className={fieldRequirements['password']['lengthRangeValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Characters range 6 and 16</p>
-                    <p className={fieldRequirements['password']['isRegexValid'] ? `${styles.success}` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Only letters and numbers</p>
+                    <p className={fieldRequirements['password']['lengthRangeValid'] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Characters range 6 and 16</p>
+                    <p className={fieldRequirements['password']['isRegexValid'] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Only letters and numbers</p>
 
                 </div>
                 {registerForm &&
@@ -94,13 +94,13 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                             </div>
                             {
                                 formErrors['repeatPassword'] &&
-                                formErrors['repeatPassword']?.map(errorMsg => <p className={styles.error} key={errorMsg} hidden={focusedField['repeatPassword'] == true ? true : false}>{errorMsg}</p>)
+                                formErrors['repeatPassword']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['repeatPassword'] == true ? true : false}>{errorMsg}</p>)
                             }
                         </div>
 
                     </>
                 }
-                <button>
+                <button className={styles.authBtn}>
                     {registerForm ? 'Register' : 'Log In'}
                 </button>
             </form>

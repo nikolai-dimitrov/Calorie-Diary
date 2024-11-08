@@ -1,5 +1,7 @@
 import { ProfileForm } from '../Common/ProfileForm/ProfileForm';
 import { useForm } from '../../hooks/useForm';
+import { useProfileStore } from '../../stores/profileStore';
+import { validateProfile } from '../../utils/validateProfile';
 
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -8,6 +10,7 @@ import { FaCircleCheck } from "react-icons/fa6";
 
 import styles from './create-profile.module.css';
 export const CreateProfile = () => {
+    const { createProfile, serverError, clearServerErrors } = useProfileStore()
     const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements, inputRefsMapper } = useForm({
         age: '',
         height: '',
@@ -16,8 +19,8 @@ export const CreateProfile = () => {
         caloriesGoal: '',
         bodyGoal: 'Lose Weight',
         gender: 'male',
-    },
-        //  register, validateAuth and server error field who is passed into create profile form come from zustand store
+    }, createProfile, validateProfile
+        //  server error field who is passed into create profile form come from zustand store
     );
 
     return (

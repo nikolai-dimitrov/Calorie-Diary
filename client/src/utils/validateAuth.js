@@ -12,8 +12,6 @@ const requirementsMapper = {
 	password: passwordFieldRequirements,
 };
 
-// If event is onBlur -> validate field and return error if there is any
-// If event is onChange -> doesn't return errors.It mutates the requirements object if requirement is met and return requirement object.
 export const validateAuth = (event) => {
 	const name = event.target.name;
 	const value = event.target.value;

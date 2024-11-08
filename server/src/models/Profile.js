@@ -62,6 +62,8 @@ const profileSchema = new mongoose.Schema({
 	targetWeight: {
 		type: Number,
 		required: [true, "Target weight is required!"],
+		min: [20, "Your target weight should be greater than 20kg!"],
+		max: [300, "Your target weight should be less than 300kg!"],
 	},
 
 	bodyGoal: {
@@ -85,6 +87,7 @@ const profileSchema = new mongoose.Schema({
 	caloriesGoal: {
 		required: [true, "Your calorie target is required"],
 		type: Number,
+		min: [20, "Your calories goal should be greater than 100kcal!"],
 		//e.g 1700 calorie target
 	},
 
