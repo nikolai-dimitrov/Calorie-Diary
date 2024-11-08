@@ -59,7 +59,19 @@ export const requirementsMapper = {
     index[1] contains requirement message which will be displayed in the component.
 */
 export const fieldRequirementKeysAndMessages = {
-	age: [["isNumberRangeValid", "Enter age between 1 and 100"]],
-
-	height: [["isNumberRangeValid", "Enter height between 100 and 270 cm"]],
+	age: [
+        ["isNumberRangeValid", "Enter age between 1 and 100"],
+    ],
+	height: [
+        ["isNumberRangeValid", "Enter height between 100 and 270 cm"],
+    ],
+	currentWeight: [
+		["isNumberRangeValid", "Enter weight between 20 and 300 kg"],
+	],
+	targetWeight: [
+		["isNumberRangeValid", "Enter weight between 20 and 300 kg"],
+	],
+    caloriesGoal: [
+		["isNumberRangeValid", "Enter calories more than 100"],
+	],
 };
