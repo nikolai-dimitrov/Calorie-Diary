@@ -35,7 +35,7 @@ const passwordFieldRequirements = {
 };
 
 // Map field name with it's requirements
-const requirementsMapper = {
+export const requirementsMapper = {
 	email: emailFieldRequirements,
 	password: passwordFieldRequirements,
 };
