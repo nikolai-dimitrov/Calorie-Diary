@@ -8,6 +8,7 @@ export const useForm = (initialValues, submitHandler, validator) => {
 	});
 
 	const [focusedField, setFocusedField] = useState(initialValues);
+
 	const [fieldRequirements, setFieldRequirements] = useState(initialValues);
 	const [success, setSuccess] = useState(false);
 
@@ -100,8 +101,8 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		event.preventDefault();
 		throwIfFieldsAreEmpty();
 		const error = checkFormErrors();
+		hideRequirementsShowErrors();
 		if (error) {
-			hideRequirementsShowErrors();
 			focusFirstFieldWithError(error);
 			return;
 		}
