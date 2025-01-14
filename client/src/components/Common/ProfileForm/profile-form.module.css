@@ -10,7 +10,6 @@
 .formContent {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 20px;
 }
 
 .editFormContent {
