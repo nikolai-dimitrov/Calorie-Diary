@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom'
+import { fieldRequirementKeysAndMessages } from './authFormRequirements'
 
 import styles from './auth-form.module.css';
 import { FaEye, FaKey, FaUser } from "react-icons/fa";
@@ -42,8 +43,13 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
 
                         }
                     </div>
+
                     {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
-                    <p className={fieldRequirements['email']['isRegexValid'] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['email'] == true ? false : true}>Enter email</p>
+                    {fieldRequirementKeysAndMessages['email'].map((requirementArray) => {
+                        const fieldRequirementKey = requirementArray[0];
+                        const fieldRequirementMessage = requirementArray[1]
+                        return <p className={fieldRequirements['email'][fieldRequirementKey] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['email'] == true ? false : true} key={fieldRequirementMessage}>{fieldRequirementMessage}</p>
+                    })}
                 </div>
                 <div className={styles.inputContainer}>
                     <div>
@@ -69,9 +75,11 @@ export const AuthForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, 
                             formErrors['password']?.map(errorMsg => <p className={`formErrorMessage`} key={errorMsg} hidden={focusedField['password'] == true ? true : false}>{errorMsg}</p>)
                         }
                     </div>
-                    {/* If field is focused -> instead of showing error messages if any, it shows field requirements list */}
-                    <p className={fieldRequirements['password']['lengthRangeValid'] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Characters range 6 and 16</p>
-                    <p className={fieldRequirements['password']['isRegexValid'] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true}>Only letters and numbers</p>
+                    {fieldRequirementKeysAndMessages['password'].map((requirementArray) => {
+                        const fieldRequirementKey = requirementArray[0];
+                        const fieldRequirementMessage = requirementArray[1]
+                        return <p className={fieldRequirements['password'][fieldRequirementKey] ? `success` : `${styles.fieldRequirements}`} hidden={focusedField['password'] == true ? false : true} key={fieldRequirementMessage}>{fieldRequirementMessage}</p>
+                    })}
 
                 </div>
                 {registerForm &&

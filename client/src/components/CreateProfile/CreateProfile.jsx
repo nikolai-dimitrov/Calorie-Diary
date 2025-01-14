@@ -1,7 +1,7 @@
 import { ProfileForm } from '../Common/ProfileForm/ProfileForm';
 import { useForm } from '../../hooks/useForm';
 import { useProfileStore } from '../../stores/profileStore';
-import { validateProfile } from '../../utils/validateProfile';
+import { validateProfile } from '../Common/ProfileForm/validateProfile';
 
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -19,9 +19,7 @@ export const CreateProfile = () => {
         caloriesGoal: '',
         bodyGoal: 'Lose Weight',
         gender: 'male',
-    }, createProfile, validateProfile
-        //  server error field who is passed into create profile form come from zustand store
-    );
+    }, createProfile, validateProfile);
 
     return (
         <>
@@ -37,7 +35,7 @@ export const CreateProfile = () => {
                         onChange={onChange}
                         onFocus={onFocus}
                         formErrors={formErrors}
-                        // serverError={serverError}
+                        serverError={serverError}
                         focusedField={focusedField}
                         fieldRequirements={fieldRequirements}
                         inputRefsMapper={inputRefsMapper}

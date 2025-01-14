@@ -3,6 +3,10 @@
 	padding: 2em;
 }
 
+.profileForm p {
+	font-size: 14px;
+}
+
 .formContent {
 	display: flex;
 	justify-content: space-between;
@@ -16,12 +20,19 @@
 .formContent .leftSide {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	width: 45%;
+	width: 29%;
 }
 
 .formContent .leftSide div {
 	position: relative;
+}
+
+.formContent .leftSide .inputWrapper {
+	margin-bottom: 20px;
+}
+
+.formContent .leftSide .reduceMargin {
+	margin-bottom: 3.4px;
 }
 
 .formContent .leftSide input {
@@ -72,6 +83,7 @@
 	border: 1px solid white;
 	position: relative;
 	padding: 20px 0px 20px 20px;
+	margin-bottom: 11px;
 }
 
 .rightSide div div {
