@@ -116,3 +116,22 @@ input[type="radio"] {
 	border: 1px solid #414141;
 	padding: 3px 10px;
 }
+
+.serverErrorContainer{
+	overflow: hidden;
+}
+
+.popUp {
+	position: relative;
+	animation-name: show-in;
+	animation-duration: 0.5s;
+}
+
+@keyframes show-in {
+	from {
+		bottom: -500px;
+	}
+	to {
+		bottom: 0px;
+	}
+}

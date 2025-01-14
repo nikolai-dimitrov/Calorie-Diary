@@ -250,8 +250,8 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
 
                             </div>
                         </div>
-                        <div>
-                            {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={`formErrorMessage`}>{errorMsg}</p>)}
+                        <div className={styles.serverErrorContainer}>
+                            {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={`formErrorMessage ${styles.popUp}`}>{errorMsg}</p>)}
 
                         </div>
                     </div>
