@@ -3,6 +3,10 @@
 	padding: 2em;
 }
 
+.profileForm p {
+	font-size: 14px;
+}
+
 .formContent {
 	display: flex;
 	justify-content: space-between;
@@ -16,12 +20,19 @@
 .formContent .leftSide {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	width: 29%;
 }
 
 .formContent .leftSide div {
 	position: relative;
+}
+
+.formContent .leftSide .inputWrapper {
+	margin-bottom: 20px;
+}
+
+.formContent .leftSide .reduceMargin {
+	margin-bottom: 3.4px;
 }
 
 .formContent .leftSide input {
@@ -106,4 +117,3 @@ input[type="radio"] {
 	border: 1px solid #414141;
 	padding: 3px 10px;
 }
-

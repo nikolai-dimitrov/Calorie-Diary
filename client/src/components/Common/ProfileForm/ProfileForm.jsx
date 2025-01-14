@@ -14,7 +14,13 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
             return true;
         } else return false;
     });
-
+    // If there is form error or field's requirements are shown apply additional css class to input's wrapper div.
+    const determineCssClass = (inputFieldName) => {
+        if (formErrors[inputFieldName].length > 0 || focusedField[inputFieldName] == true) {
+            return `${styles.reduceMargin}`
+        }
+        return ''
+    };
     return (
         <>
             <form action=""
@@ -23,7 +29,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
             >
                 <div className={editProfileForm ? `${styles.formContent} ${styles.editFormContent}` : `${styles.formContent}`}>
                     <div className={styles.leftSide}>
-                        <div>
+                        <div className={`${styles.inputWrapper} ${determineCssClass('age')}`}>
                             <div>
                                 {editProfileForm && <label htmlFor="age">Age</label>}
                                 <input
@@ -52,7 +58,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                 })}
                             </div>
                         </div>
-                        <div>
+                        <div className={`${styles.inputWrapper} ${determineCssClass('height')}`}>
                             <div>
                                 {editProfileForm && <label htmlFor="height">Height</label>}
                                 <input
@@ -82,7 +88,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                             </div>
 
                         </div>
-                        <div>
+                        <div className={`${styles.inputWrapper} ${determineCssClass('currentWeight')}`}>
                             <div>
                                 {editProfileForm && <label htmlFor="currentWeight">Current Weight</label>}
                                 <input
@@ -110,7 +116,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                 })}
                             </div>
                         </div>
-                        <div>
+                        <div className={`${styles.inputWrapper} ${determineCssClass('targetWeight')}`}>
                             <div>
                                 {editProfileForm && <label htmlFor="targetWeight">Target Weight</label>}
                                 <input
@@ -138,7 +144,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                 })}
                             </div>
                         </div>
-                        <div>
+                        <div className={`${styles.inputWrapper} ${determineCssClass('caloriesGoal')}`}>
                             <div>
                                 {editProfileForm && <label htmlFor="caloriesGoal">Calories Goal</label>}
                                 <input
@@ -180,6 +186,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                         id='loseWeight'
                                         value='Lose Weight'
                                         onChange={onChange}
+                                        onFocus={(event) => onFocus(event)}
                                         defaultChecked={editProfileForm ? false : true}
                                     />
                                 </label>
@@ -193,6 +200,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                         id='gainWeight'
                                         value='Gain Weight'
                                         onChange={onChange}
+                                        onFocus={(event) => onFocus(event)}
                                     />
                                 </label>
                             </div>
@@ -205,6 +213,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                         id='maintainWeight'
                                         value='Maintain Weight'
                                         onChange={onChange}
+                                        onFocus={(event) => onFocus(event)}
                                     />
                                 </label>
                             </div>
@@ -221,6 +230,7 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                         id='male'
                                         value='male'
                                         onChange={onChange}
+                                        onFocus={(event) => onFocus(event)}
                                         defaultChecked={editProfileForm ? false : true}
                                     />
                                 </label>
@@ -234,16 +244,20 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                                         id='female'
                                         value='female'
                                         onChange={onChange}
+                                        onFocus={(event) => onFocus(event)}
                                     />
                                 </label>
 
                             </div>
                         </div>
+                        <div>
+                            {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={`formErrorMessage`}>{errorMsg}</p>)}
+
+                        </div>
                     </div>
                 </div>
-                <div className={styles.formFooterContainer}>
+                <div>
                     <button className={styles.profileBtn}>{editProfileForm ? 'Edit' : 'Create'}</button>
-                    {/* {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={`formErrorMessage ${styles.serverError}`}>{errorMsg}</p>)} */}
                 </div>
             </form>
         </>
