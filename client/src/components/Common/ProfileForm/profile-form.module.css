@@ -10,7 +10,6 @@
 .formContent {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 20px;
 }
 
 .editFormContent {
@@ -116,4 +115,34 @@ input[type="radio"] {
 	border-radius: 7px;
 	border: 1px solid #414141;
 	padding: 3px 10px;
+}
+
+.serverErrorContainer {
+	overflow: hidden;
+}
+
+.popUp {
+	position: relative;
+	animation-name: show-in;
+	animation-duration: 0.5s;
+}
+
+.popover {
+	margin-left: 20px;
+	position: absolute;
+	right: 3%;
+	top: 7%;
+}
+
+.popoverItem {
+	font-weight: bold !important;
+}
+
+@keyframes show-in {
+	from {
+		bottom: -500px;
+	}
+	to {
+		bottom: 0px;
+	}
 }

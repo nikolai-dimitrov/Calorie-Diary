@@ -1,12 +1,22 @@
 import { useState } from 'react';
 
+import { Popover } from "antd";
 import { fieldRequirementKeysAndMessages } from "./profileFormRequirements"
 import { GiBodyHeight, GiAges, GiWeightScale, GiMeal } from "react-icons/gi";
 import { ImTarget } from "react-icons/im";
 import { IoWoman, IoManSharp } from "react-icons/io5";
+import { BsInfoSquareFill } from "react-icons/bs";
 import { FaLongArrowAltDown, FaLongArrowAltUp, FaArrowsAltH } from "react-icons/fa";
 
 import styles from './profile-form.module.css';
+
+const content = (
+    <div>
+        <p><span className={styles.popoverItem}>Lose Weight:</span> You have to set up your current weight to be more than target weight.</p>
+        <p><span className={styles.popoverItem}>Gain Weight:</span> You have to set up your current weight to be less than target weight.</p>
+        <p><span className={styles.popoverItem}>Maintain Weight:</span> You have to set up your current weight to be equal to target weight.</p>
+    </div>
+);
 
 export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formErrors, serverError, focusedField, fieldRequirements, inputRefsMapper }) => {
     const [editProfileForm, setEditProfileForm] = useState(() => {
@@ -176,6 +186,9 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
                     </div>
                     <div className={styles.rightSide}>
                         <div className={styles.bodyGoalsContainer}>
+                            <Popover content={content} title="Body Goal Tips:" trigger={['hover']} placement={'left'} >
+                                <div className={styles.popover}><BsInfoSquareFill /></div>
+                            </Popover>
                             <h3>Select Body Goal</h3>
                             <div>
                                 <FaLongArrowAltDown />
@@ -250,8 +263,8 @@ export const ProfileForm = ({ formValues, onSubmit, onChange, onFocus, formError
 
                             </div>
                         </div>
-                        <div>
-                            {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={`formErrorMessage`}>{errorMsg}</p>)}
+                        <div className={styles.serverErrorContainer}>
+                            {serverError && serverError.split('!').map(errorMsg => <p key={errorMsg} className={`formErrorMessage ${styles.popUp}`}>{errorMsg}</p>)}
 
                         </div>
                     </div>
