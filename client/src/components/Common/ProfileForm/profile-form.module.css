@@ -74,6 +74,7 @@
 	position: relative;
 	padding: 20px 0px 20px 20px;
 	margin-bottom: 25px;
+	border-radius: 7px;
 }
 
 .genderContainer {
@@ -83,6 +84,7 @@
 	position: relative;
 	padding: 20px 0px 20px 20px;
 	margin-bottom: 11px;
+	border-radius: 7px;
 }
 
 .rightSide div div {
@@ -132,6 +134,7 @@ input[type="radio"] {
 	position: absolute;
 	right: 3%;
 	top: 7%;
+	cursor: pointer;
 }
 
 .popoverItem {
