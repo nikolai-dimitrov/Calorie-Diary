@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ProfileForm } from '../Common/ProfileForm/ProfileForm';
 import { useForm } from '../../hooks/useForm';
 import { useProfileStore } from '../../stores/profileStore';
@@ -21,6 +22,10 @@ export const CreateProfile = () => {
         gender: 'male',
     }, createProfile, validateProfile);
 
+    // It removes server error from profile state if any.
+    useEffect(() => {
+        clearServerErrors();
+    }, [])
     return (
         <>
             <section className={styles.hero}>
