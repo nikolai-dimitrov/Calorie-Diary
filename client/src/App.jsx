@@ -64,9 +64,9 @@ function App() {
 					<Route path='/profile/edit'
 						element={
 							<AuthRequiredRouteGuard>
-								<NoProfileRequiredRouteGuard>
+								<ProfileRequiredRouteGuard>
 									<EditProfile />
-								</NoProfileRequiredRouteGuard>
+								</ProfileRequiredRouteGuard>
 							</AuthRequiredRouteGuard>
 						}
 					/>
