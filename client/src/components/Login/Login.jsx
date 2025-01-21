@@ -17,13 +17,14 @@ export const Login = () => {
 
     useEffect(() => {
         clearServerErrors()
-        if (success == true && user.hasProfile) {
-            navigate('/')
-        } else if (success == true && user.hasProfile == false) {
-            navigate('/profile/create')
-
+        if (success) {
+            if (user.hasProfile) {
+                navigate('/');
+            } else if (user.hasProfile == false) {
+                navigate('/profile/create');
+            }
         }
-    }, [success])
+    }, [success]);
 
     return (
         <section className={styles.login}>

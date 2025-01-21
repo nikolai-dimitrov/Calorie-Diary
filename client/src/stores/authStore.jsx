@@ -10,12 +10,15 @@ export const useAuthStore = create(
 					{
 						user: null,
 						serverError: '',
+						// On page reload / manually type url -> enable guest required route guard 
+						disableGuestRequiredGuard: false,
 						authenticate: async (credentials, action) => {
 							try {
 								const userData = await action(credentials);
 								const user = { ...userData.data.user, 'accessToken': userData.data.accessToken };
 								set({ user: user });
-								set((state) => ({ ...state, serverError: '' }));
+								// Set disableGuestRequiredRouteGuard to true if login is successful because i want to redirect to create profile on login by useEffect instead of route guard redirection.
+								set((state) => ({ ...state, serverError: '', disableGuestRequiredGuard: true }));
 								return true;
 
 							} catch (error) {
@@ -42,9 +45,11 @@ export const useAuthStore = create(
 							localStorage.removeItem('user');
 
 						},
+
 						clearServerErrors: () => {
 							set({ serverError: '' });
-						}
+						},
+
 					})
 			},
 			{
