@@ -10,7 +10,7 @@ import styles from './register.module.css';
 export const Register = () => {
     const { register, serverError, clearServerErrors } = useAuthStore()
     const navigate = useNavigate()
-    const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements, inputRefsMapper } = useForm({
+    const { formValues, formErrors, onChange, onSubmit, onFocus, isResponseStatusSuccessful, focusedField, fieldRequirements, inputRefsMapper } = useForm({
         email: '',
         password: '',
         repeatPassword: '',
@@ -18,10 +18,10 @@ export const Register = () => {
 
     useEffect(() => {
         clearServerErrors();
-        if (success == true) {
+        if (isResponseStatusSuccessful) {
             navigate('/profile/create');
         }
-    }, [success]);
+    }, [isResponseStatusSuccessful]);
 
     return (
         <section className={styles.register}>

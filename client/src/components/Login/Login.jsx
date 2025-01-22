@@ -10,21 +10,21 @@ import styles from './login.module.css';
 export const Login = () => {
     const { login, user, serverError, clearServerErrors } = useAuthStore();
     const navigate = useNavigate()
-    const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements, inputRefsMapper } = useForm({
+    const { formValues, formErrors, onChange, onSubmit, onFocus, isResponseStatusSuccessful, focusedField, fieldRequirements, inputRefsMapper } = useForm({
         email: '',
         password: '',
     }, login, validateAuth);
 
     useEffect(() => {
         clearServerErrors()
-        if (success) {
+        if (isResponseStatusSuccessful) {
             if (user.hasProfile) {
                 navigate('/');
             } else if (user.hasProfile == false) {
                 navigate('/profile/create');
             }
         }
-    }, [success]);
+    }, [isResponseStatusSuccessful]);
 
     return (
         <section className={styles.login}>
