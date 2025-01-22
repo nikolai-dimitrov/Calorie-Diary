@@ -10,7 +10,8 @@ export const useForm = (initialValues, submitHandler, validator) => {
 	const [focusedField, setFocusedField] = useState(initialValues);
 
 	const [fieldRequirements, setFieldRequirements] = useState(initialValues);
-	const [success, setSuccess] = useState(false);
+	const [isResponseStatusSuccessful, setIsResponseStatusSuccessful] =
+		useState(false);
 
 	// Create ref for every key of initial values and map that ref with the key
 	// email:useRef(),
@@ -107,9 +108,10 @@ export const useForm = (initialValues, submitHandler, validator) => {
 			return;
 		}
 
-		// Check if request is successful
-		const isSuccessful = await submitHandler(formValues);
-		setSuccess(isSuccessful);
+		const responseStatus = await submitHandler(formValues);
+		setIsResponseStatusSuccessful(
+			responseStatus == "success" ? true : false
+		);
 	};
 
 	return {
@@ -118,7 +120,7 @@ export const useForm = (initialValues, submitHandler, validator) => {
 		onChange,
 		onSubmit,
 		onFocus,
-		success,
+		isResponseStatusSuccessful,
 		focusedField,
 		fieldRequirements,
 		inputRefsMapper,
