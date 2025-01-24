@@ -14,12 +14,13 @@ export const useAuthStore = create(
 						isDisabledGuestRequiredGuard: false,
 						authenticate: async (credentials, action) => {
 							try {
-								const userData = await action(credentials);
-								const user = { ...userData.data.user, 'accessToken': userData.data.accessToken };
+								const responseResult = await action(credentials);
+								const user = { ...responseResult.data.user, 'accessToken': responseResult.data.accessToken };
 								set({ user: user });
+
 								// Set isDisabledGuestRequiredRouteGuard to true if login is successful because i want to redirect to create profile on login by useEffect instead of route guard redirection.
 								set((state) => ({ ...state, serverError: '', isDisabledGuestRequiredGuard: true }));
-								return userData.status;
+								return true;
 
 							} catch (error) {
 								set((state) => ({ ...state, serverError: error.message }));
