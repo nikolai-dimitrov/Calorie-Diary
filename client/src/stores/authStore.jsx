@@ -20,7 +20,7 @@ export const useAuthStore = create(
 
 								// Set isDisabledGuestRequiredRouteGuard to true if login is successful because i want to redirect to create profile on login by useEffect instead of route guard redirection.
 								set((state) => ({ ...state, serverError: '', isDisabledGuestRequiredGuard: true }));
-								return true;
+								return responseResult.status;
 
 							} catch (error) {
 								set((state) => ({ ...state, serverError: error.message }));
