@@ -12,7 +12,7 @@ import { FaCircleCheck } from "react-icons/fa6";
 import styles from './create-profile.module.css';
 export const CreateProfile = () => {
     const { createProfile, serverError, clearServerErrors } = useProfileStore()
-    const { formValues, formErrors, onChange, onSubmit, onFocus, success, focusedField, fieldRequirements, inputRefsMapper } = useForm({
+    const { formValues, formErrors, onChange, onSubmit, onFocus, focusedField, fieldRequirements, inputRefsMapper } = useForm({
         age: '',
         height: '',
         currentWeight: '',
