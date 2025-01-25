@@ -12,10 +12,12 @@ export const useProfileStore = create(
                     createProfile: async (profileData) => {
                         try {
                             const profileService = profileServiceFactory();
-                            const result = await profileService.createProfile(profileData);
-                            set({ profile: result })
+                            const responseResult = await profileService.createProfile(profileData);
+                            set({ profile: responseResult });
+                            return responseResult.status;
                         } catch (error) {
                             set((state) => ({ ...state, serverError: error.message }));
+                            return error.status;
 
                         }
                     },
