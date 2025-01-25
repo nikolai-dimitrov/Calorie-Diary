@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom'
+
 import { ProfileForm } from '../Common/ProfileForm/ProfileForm';
 import { useForm } from '../../hooks/useForm';
 import { useProfileStore } from '../../stores/profileStore';
+import { useAuthStore } from '../../stores/authStore'
+
 import { validateProfile } from '../Common/ProfileForm/validateProfile';
 
 
@@ -11,8 +15,10 @@ import { FaCircleCheck } from "react-icons/fa6";
 
 import styles from './create-profile.module.css';
 export const CreateProfile = () => {
-    const { createProfile, serverError, clearServerErrors } = useProfileStore()
-    const { formValues, formErrors, onChange, onSubmit, onFocus, focusedField, fieldRequirements, inputRefsMapper } = useForm({
+    const { createProfile, serverError, clearServerErrors } = useProfileStore();
+    const { updateUser } = useAuthStore();
+    // const navigate = useNavigate();
+    const { formValues, formErrors, onChange, onSubmit, onFocus, isResponseStatusSuccessful, focusedField, fieldRequirements, inputRefsMapper } = useForm({
         age: '',
         height: '',
         currentWeight: '',
@@ -22,10 +28,16 @@ export const CreateProfile = () => {
         gender: 'male',
     }, createProfile, validateProfile);
 
+
     // It removes server error from profile state if any.
     useEffect(() => {
         clearServerErrors();
-    }, [])
+        if (isResponseStatusSuccessful) {
+            updateUser('hasProfile', true);
+            // navigate('/');
+        }
+
+    }, [isResponseStatusSuccessful])
     return (
         <>
             <section className={styles.hero}>
