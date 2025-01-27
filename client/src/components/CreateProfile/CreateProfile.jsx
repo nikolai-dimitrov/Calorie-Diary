@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { ProfileForm } from '../Common/ProfileForm/ProfileForm';
 import { useForm } from '../../hooks/useForm';
@@ -17,7 +17,7 @@ import styles from './create-profile.module.css';
 export const CreateProfile = () => {
     const { createProfile, serverError, clearServerErrors } = useProfileStore();
     const { updateUser } = useAuthStore();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const { formValues, formErrors, onChange, onSubmit, onFocus, isResponseStatusSuccessful, focusedField, fieldRequirements, inputRefsMapper } = useForm({
         age: '',
         height: '',
@@ -34,7 +34,7 @@ export const CreateProfile = () => {
         clearServerErrors();
         if (isResponseStatusSuccessful) {
             updateUser('hasProfile', true);
-            // navigate('/');
+            navigate('/');
         }
 
     }, [isResponseStatusSuccessful])
