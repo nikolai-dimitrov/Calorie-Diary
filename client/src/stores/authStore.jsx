@@ -12,6 +12,11 @@ export const useAuthStore = create(
 						serverError: '',
 						// On page reload / manually type url -> enable guest required route guard 
 						isDisabledGuestRequiredGuard: false,
+
+						updateUser: (key, value) => {
+							set((state) => ({ user: { ...state.user, [key]: value } }));
+						},
+
 						authenticate: async (credentials, action) => {
 							try {
 								const responseResult = await action(credentials);
