@@ -1,8 +1,19 @@
+import { useState, useCallback } from 'react';
 import { Select } from 'antd';
 import { FiEdit, FiDelete } from "react-icons/fi";
 
 import styles from './diary.module.css'
 export const Diary = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    const onScrollHandler = (e) => {
+        const currentScrollTopValue = e.target.scrollTop;
+        const hasScrolled = currentScrollTopValue > 0;
+        if (hasScrolled != isScrolled) {
+            setIsScrolled(hasScrolled);
+        }
+    };
+
     return (
         <section className={styles.diary}>
             <div className={styles.headingContainer}>
@@ -28,9 +39,9 @@ export const Diary = () => {
                 />
                 <button>Create Report</button>
             </div>
-            <div className={styles.tableScroll}>
+            <div className={styles.tableScroll} onScroll={(e) => onScrollHandler(e)}>
                 <table className={styles.container}>
-                    <thead>
+                    <thead className={isScrolled && styles.sticky}>
                         <tr>
                             <th><h2>Date </h2></th>
                             <th><h2>Food</h2></th>

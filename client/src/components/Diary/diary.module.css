@@ -51,6 +51,9 @@
 
 .container th {
 	background-color: #242424;
+}
+
+.sticky {
 	position: sticky;
 	top: -1px;
 	z-index: 2;
