@@ -27,9 +27,11 @@
 .headingContainer:after {
 	content: "";
 	position: absolute;
-	border-bottom: 1px solid #ffffff;
 	width: 100%;
 	top: 43px;
+	height: 6px;
+	background-color: #e8e8e8;
+	border-radius: 6px;
 }
 
 .tableScroll {
@@ -120,12 +122,12 @@
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-    background-color: #4c4c4c;
-    border-radius: 8px;
+	width: 10px;
+	background-color: #4c4c4c;
+	border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #e8e8e8;
-    border-radius: 8px;
+	background-color: #e8e8e8;
+	border-radius: 8px;
 }
