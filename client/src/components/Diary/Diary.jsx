@@ -1,10 +1,13 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
+import { DiaryModal } from './DiaryModal/DiaryModal';
 import { Select } from 'antd';
 import { FiEdit, FiDelete } from "react-icons/fi";
 
 import styles from './diary.module.css'
 export const Diary = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [open, setOpen] = useState();
+    const [currentModalMode, setCurrentModalMode] = useState('createMode')
 
     const onScrollHandler = (e) => {
         const currentScrollTopValue = e.target.scrollTop;
@@ -13,6 +16,20 @@ export const Diary = () => {
             setIsScrolled(hasScrolled);
         }
     };
+
+    const showCreateModal = () => {
+        setCurrentModalMode('createMode')
+        setOpen(true);
+    };
+
+    const showUpdateModal = () => {
+        setCurrentModalMode('updateMode')
+        setOpen(true);
+    };
+
+    const closeModal = () => {
+        setOpen(false);
+    }
 
     return (
         <section className={styles.diary}>
@@ -37,7 +54,8 @@ export const Diary = () => {
                         },
                     ]}
                 />
-                <button>Create Report</button>
+                <button onClick={showCreateModal}>Create Report</button>
+                <DiaryModal open={open} closeModal={closeModal} currentModalMode={currentModalMode} />
             </div>
             <div className={styles.tableScroll} onScroll={(e) => onScrollHandler(e)}>
                 <table className={styles.container}>
@@ -61,7 +79,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 1300 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
 
                         </tr>
                         <tr>
@@ -71,7 +89,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 800 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
 
                         </tr>
                         <tr>
@@ -81,7 +99,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 300 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -90,7 +108,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -99,7 +117,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -108,7 +126,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -117,7 +135,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -126,7 +144,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -135,7 +153,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -144,7 +162,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -153,7 +171,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -162,7 +180,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                         <tr>
                             <td>01.12.2025</td>
@@ -171,7 +189,7 @@ export const Diary = () => {
                             <td>1700 kcal</td>
                             <td>2000 kcal</td>
                             <td>- 0 kcal</td>
-                            <td><button><FiDelete /></button><button><FiEdit /></button></td>
+                            <td><button><FiDelete /></button><button onClick={showUpdateModal}><FiEdit /></button></td>
                         </tr>
                     </tbody>
                 </table>
