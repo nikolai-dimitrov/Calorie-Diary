@@ -2,3 +2,14 @@
 	display: flex;
 	color: #e8e8e8;
 }
+
+.modalForm input {
+	margin-top: 5px;
+	outline: none;
+}
+
+.modalForm input:focus {
+	border-color: orange;
+    background-color: #3c3c3c;
+
+}
