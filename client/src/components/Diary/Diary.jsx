@@ -59,7 +59,7 @@ export const Diary = () => {
             </div>
             <div className={styles.tableScroll} onScroll={(e) => onScrollHandler(e)}>
                 <table className={styles.container}>
-                    <thead className={isScrolled && styles.sticky}>
+                    <thead className={isScrolled ? styles.sticky : undefined}>
                         <tr>
                             <th><h2>Date </h2></th>
                             <th><h2>Food</h2></th>
