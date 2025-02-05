@@ -61,6 +61,12 @@ body {
 }
 .main {
 	padding: 6.5em 2em 0 2em;
+	/* CSS which pushes footer in the bottom side of the page if content height is less than media screen height  */
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	height: 100vh;
+	justify-content: space-between;
 }
 
 .formErrorMessage {

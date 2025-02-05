@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Layout } from './components/Common/Layout/Layout';
 import { Navbar } from './components/Navbar/Navbar';
 import { Home } from './components/Home/Home';
 import { Login } from './components/Login/Login';
@@ -21,7 +22,6 @@ function App() {
 			<Navbar />
 			<div className='main'>
 				<Routes>
-					<Route path='/' element={<Home />} />
 					<Route path='/login'
 						element={
 							<GuestRequiredRouteGuard>
@@ -43,40 +43,50 @@ function App() {
 							</AuthRequiredRouteGuard>
 						}
 					/>
-					<Route path='/profile'
+					<Route
+						path='/*'
 						element={
-							<AuthRequiredRouteGuard>
-								<ProfileRequiredRouteGuard>
-									<Profile />
-								</ProfileRequiredRouteGuard >
-							</AuthRequiredRouteGuard>
-						}
-					/>
-					<Route path='/profile/create'
-						element={
-							<AuthRequiredRouteGuard>
-								<NoProfileRequiredRouteGuard>
-									<CreateProfile />
-								</NoProfileRequiredRouteGuard>
-							</AuthRequiredRouteGuard>
-						}
-					/>
-					<Route path='/profile/edit'
-						element={
-							<AuthRequiredRouteGuard>
-								<ProfileRequiredRouteGuard>
-									<EditProfile />
-								</ProfileRequiredRouteGuard>
-							</AuthRequiredRouteGuard>
-						}
-					/>
-					<Route path='/diary'
-						element={
-							<AuthRequiredRouteGuard>
-								<ProfileRequiredRouteGuard>
-									<Diary />
-								</ProfileRequiredRouteGuard >
-							</AuthRequiredRouteGuard>
+							<Layout>
+								<Routes>
+									<Route path='/' element={<Home />} />
+									<Route path='/profile'
+										element={
+											<AuthRequiredRouteGuard>
+												<ProfileRequiredRouteGuard>
+													<Profile />
+												</ProfileRequiredRouteGuard >
+											</AuthRequiredRouteGuard>
+										}
+									/>
+									<Route path='/profile/create'
+										element={
+											<AuthRequiredRouteGuard>
+												<NoProfileRequiredRouteGuard>
+													<CreateProfile />
+												</NoProfileRequiredRouteGuard>
+											</AuthRequiredRouteGuard>
+										}
+									/>
+									<Route path='/profile/edit'
+										element={
+											<AuthRequiredRouteGuard>
+												<ProfileRequiredRouteGuard>
+													<EditProfile />
+												</ProfileRequiredRouteGuard>
+											</AuthRequiredRouteGuard>
+										}
+									/>
+									<Route path='/diary'
+										element={
+											<AuthRequiredRouteGuard>
+												<ProfileRequiredRouteGuard>
+													<Diary />
+												</ProfileRequiredRouteGuard >
+											</AuthRequiredRouteGuard>
+										}
+									/>
+								</Routes>
+							</Layout>
 						}
 					/>
 				</Routes>
