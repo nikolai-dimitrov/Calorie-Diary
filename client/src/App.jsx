@@ -20,7 +20,7 @@ function App() {
 	return (
 		<>
 			<Navbar />
-			<div className='main'>
+			<main className='main'>
 				<Routes>
 					<Route path='/login'
 						element={
@@ -90,7 +90,7 @@ function App() {
 						}
 					/>
 				</Routes>
-			</div>
+			</main>
 		</>
 	)
 }
