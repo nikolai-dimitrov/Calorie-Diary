@@ -6,7 +6,7 @@ export const Navbar = () => {
 	const { user } = useAuthStore()
 	const [showNav, setShowNav] = useState(false)
 	return (
-		<div className={styles.nav}>
+		<header className={styles.nav}>
 			<div className={styles.container}>
 				<div className={styles.navbar}>
 					<div className={styles.logo}>Calorie Diary</div>
@@ -94,6 +94,6 @@ export const Navbar = () => {
 					</div>
 				</div>
 			</div>
-		</div >
+		</header >
 	)
 };
