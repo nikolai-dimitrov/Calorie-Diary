@@ -37,6 +37,7 @@
 .tableScroll {
 	overflow: auto;
 	height: 615px;
+	margin-bottom: 40px;
 }
 
 .container {
@@ -130,4 +131,11 @@
 ::-webkit-scrollbar-thumb {
 	background-color: #e8e8e8;
 	border-radius: 8px;
+}
+
+.motivationMessageContainer {
+	font-family: "Protest Guerrilla", sans-serif;
+	font-size: 20px;
+	text-align: center;
+	color: #fff;
 }
