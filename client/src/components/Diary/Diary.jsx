@@ -4,6 +4,7 @@ import { Select } from 'antd';
 import { FiEdit, FiDelete } from "react-icons/fi";
 import { TypingTextAnimation } from '../Common/TypingTextAnimation/TypingTextAnimation';
 import styles from './diary.module.css'
+
 export const Diary = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [open, setOpen] = useState();
@@ -34,7 +35,7 @@ export const Diary = () => {
     return (
         <section className={styles.diary}>
             <div className={styles.headingContainer}>
-                <h1>My Reports:</h1>
+                <h1>My Diary</h1>
                 <Select
                     defaultValue="7"
                     className={styles.selectTimePeriod}
@@ -57,6 +58,7 @@ export const Diary = () => {
                 <button onClick={showCreateModal}>Create Report</button>
                 <DiaryModal open={open} closeModal={closeModal} currentModalMode={currentModalMode} />
             </div>
+            {/* TODO: If reports show table conditionally else show diaryHeader */}
             <div className={styles.tableScroll} onScroll={(e) => onScrollHandler(e)}>
                 <table className={styles.container}>
                     <thead className={isScrolled ? styles.sticky : undefined}>
@@ -194,6 +196,10 @@ export const Diary = () => {
                     </tbody>
                 </table>
             </div>
+            {/* <div className={styles.diaryHeader}>
+                <TypingTextAnimation text={"You haven't created any reports yet."} typingSpeed={0.05} className={'testClassName'} />
+            </div> */}
+            {/* TODO: When fetch reports if no reports conditionally add .bottomCenter class to motivationMessageContainer */}
             <div className={styles.motivationMessageContainer}>
                 <TypingTextAnimation text={'To achieve your goals:'} typingSpeed={0.05} className={'testClassName'} />
                 <TypingTextAnimation text={'Track your daily achievements.'} typingSpeed={0.05} className={'testClassName'} />
