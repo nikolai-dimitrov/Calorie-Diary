@@ -6,8 +6,12 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 60px;
-
 	position: relative;
+}
+
+.headingContainer h1 {
+	font-family: "Protest Guerrilla", sans-serif;
+	color: #fff;
 }
 
 .selectTimePeriod {
@@ -24,7 +28,7 @@
 	padding: 4px 18px;
 }
 
-.headingContainer:after {
+/* .headingContainer:after {
 	content: "";
 	position: absolute;
 	width: 100%;
@@ -32,6 +36,13 @@
 	height: 6px;
 	background-color: #e8e8e8;
 	border-radius: 6px;
+} */
+
+.diaryHeader {
+	font-size: 32px;
+	text-align: center;
+	font-family: "Protest Guerrilla", sans-serif;
+	color: #fff;
 }
 
 .tableScroll {
@@ -138,4 +149,11 @@
 	font-size: 20px;
 	text-align: center;
 	color: #fff;
+}
+
+.bottomCenter {
+	position: absolute;
+	bottom: 80px;
+	right: 50%;
+	transform: translateX(50%);
 }
