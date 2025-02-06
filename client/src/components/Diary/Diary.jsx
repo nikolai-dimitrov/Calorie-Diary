@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DiaryModal } from './DiaryModal/DiaryModal';
 import { Select } from 'antd';
 import { FiEdit, FiDelete } from "react-icons/fi";
-
+import { TypingTextAnimation } from '../Common/TypingTextAnimation/TypingTextAnimation';
 import styles from './diary.module.css'
 export const Diary = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -194,7 +194,11 @@ export const Diary = () => {
                     </tbody>
                 </table>
             </div>
-
+            <div className={styles.motivationMessageContainer}>
+                <TypingTextAnimation text={'To achieve your goals:'} typingSpeed={0.05} className={'testClassName'} />
+                <TypingTextAnimation text={'Track your daily achievements.'} typingSpeed={0.05} className={'testClassName'} />
+                <TypingTextAnimation text={'Stay motivated and be consistent.'} typingSpeed={0.05} className={'testClassName'} />
+            </div>
         </section>
     )
 }
